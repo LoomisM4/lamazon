@@ -1,4 +1,4 @@
-package dhbw.wbda.servlets;
+package dhbw.lamazon.servlets;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
