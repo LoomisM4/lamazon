@@ -7,6 +7,10 @@
         <element id="directory" name="classes">
           <element id="module-output" name="lamazon" />
         </element>
+        <element id="directory" name="lib">
+          <element id="file-copy" path="/Developer/Java/jstl-impl.jar" />
+          <element id="file-copy" path="/Developer/Java/mysql-connector-java-5.1.45-bin.jar" />
+        </element>
       </element>
     </root>
   </artifact>
