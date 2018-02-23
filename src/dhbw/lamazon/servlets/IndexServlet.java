@@ -15,6 +15,7 @@ public class IndexServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+        Dispatcher dispatcher = new Dispatcher(request, response);
+        dispatcher.navigateTo("startseite.jsp");
     }
 }
