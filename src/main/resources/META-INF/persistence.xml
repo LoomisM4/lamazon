@@ -4,10 +4,10 @@
     <persistence-unit name="MySQL">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <properties>
-            <property name="eclipselink.jdbc.url" value="localhost"/>
-            <property name="eclipselink.jdbc.driver" value="mysql-connector-java-5.1.45-bin.jar"/>
+            <property name="eclipselink.jdbc.url" value="localhost:3306"/>
+            <property name="eclipselink.jdbc.driver" value="mysql-connector-java"/>
             <property name="eclipselink.jdbc.user" value="root"/>
-            <property name="eclipselink.jdbc.password" value=""/>
+            <property name="eclipselink.jdbc.password" value="password"/>
         </properties>
     </persistence-unit>
 </persistence>

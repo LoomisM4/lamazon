@@ -9,7 +9,7 @@ import java.util.List;
 
 @Stateless
 public class ArticleBean {
-    @PersistenceContext
+    @PersistenceContext(unitName = "MySQL")
     EntityManager em;
 
     public List<Article> findAllArticles() {
