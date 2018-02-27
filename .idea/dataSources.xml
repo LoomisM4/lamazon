@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="MySQL/EclipseLink" uuid="cb2b03b4-b4b3-4969-b2e6-b4bd18ccccfd">
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <configured-by-url>true</configured-by-url>
+      <remarks>$PROJECT_DIR$/src/main/java/META-INF/persistence.xml</remarks>
+      <jdbc-driver>mysql-connector-java-5.1.45-bin.jar</jdbc-driver>
+      <jdbc-url>localhost</jdbc-url>
+    </data-source>
+  </component>
+</project>
