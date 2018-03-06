@@ -2,9 +2,6 @@
 
 <c:forEach var="article" items="${articles}">
     <div>
-        ${article.getTitle()}
-    </div>
-    <div>
-        ${article.getPrice()}
+        <h4>${article.getTitle()}</h4>
     </div>
 </c:forEach>
