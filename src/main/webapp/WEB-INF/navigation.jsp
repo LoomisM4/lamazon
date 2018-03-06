@@ -19,6 +19,9 @@
                     <li class="nav-item active" style="padding-right: 20px">
                         <a class="nav-link" href="${url}/meinkonto">Mein Konto</a>
                     </li>
+                    <li class="nav-item active" style="padding-right: 20px">
+                        <a class="nav-link" href="${url}/abmelden">Abmelden</a>
+                    </li>
                 </c:otherwise>
             </c:choose>
             <li class="nav-item active" style="padding-right: 20px">

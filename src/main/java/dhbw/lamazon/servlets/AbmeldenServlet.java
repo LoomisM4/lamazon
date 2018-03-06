@@ -9,20 +9,13 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = {
-        "/meinkonto"
+        "/abmelden"
 })
-public class MeinKontoServlet extends HttpServlet {
-
+public class AbmeldenServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Dispatcher d = new Dispatcher(request, response);
-
-        // falls kein User eingeloggt ist, wird automatisch die Seite zum EInloggen angezeigt
-        if (session.getAttribute("user") == null) {
-            d.navigateTo("anmelden.jsp");
-        } else {
-            d.navigateTo("meinKonto.jsp");
-        }
+        session.removeAttribute("user");
+        new Dispatcher(request, response).navigateTo("startseite.jsp");
     }
 }

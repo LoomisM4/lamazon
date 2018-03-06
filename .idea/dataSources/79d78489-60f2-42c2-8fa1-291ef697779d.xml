@@ -912,22 +912,43 @@
     <table id="229" parent="3" name="BENUTZER">
       <Engine>InnoDB</Engine>
     </table>
-    <column id="230" parent="229" name="BENUTZERNAME">
+    <column id="230" parent="229" name="ID">
       <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="231" parent="229" name="BENUTZERNAME">
+      <Position>2</Position>
       <DataType>varchar(24)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="231" parent="229" name="PASSWORT">
-      <Position>2</Position>
-      <DataType>varchar(32)|0</DataType>
+    <column id="232" parent="229" name="EMAIL">
+      <Position>3</Position>
+      <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="232" parent="229" name="PRIMARY">
+    <column id="233" parent="229" name="PASSWORT">
+      <Position>4</Position>
+      <DataType>varchar(64)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="234" parent="229" name="BENUTZER_EMAIL_uindex">
+      <ColNames>EMAIL</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="235" parent="229" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
-      <ColNames>BENUTZERNAME</ColNames>
+      <ColNames>ID</ColNames>
       <Primary>1</Primary>
+    </key>
+    <key id="236" parent="229" name="BENUTZER_EMAIL_uindex">
+      <ColNames>EMAIL</ColNames>
+      <UnderlyingIndexName>BENUTZER_EMAIL_uindex</UnderlyingIndexName>
     </key>
   </database-model>
 </dataSource>

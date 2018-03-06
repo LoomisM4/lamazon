@@ -1,7 +1,7 @@
 package dhbw.lamazon.servlets;
 
-import dhbw.lamazon.beans.BenutzerBean;
-import dhbw.lamazon.entities.Benutzer;
+import dhbw.lamazon.beans.UserBean;
+import dhbw.lamazon.entities.User;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -11,13 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(urlPatterns = {
         "/anmelden"
 })
 public class AnmeldenServlet extends HttpServlet {
     @EJB
-    BenutzerBean userBean;
+    UserBean userBean;
+    List<String> errors = new ArrayList<>();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -26,17 +29,32 @@ public class AnmeldenServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = request.getParameter("benutzername");
+        // Error aus der Session löschen
+        request.removeAttribute("errors");
+
+        String email = request.getParameter("email");
         String password = request.getParameter("passwort");
 
         HttpSession session = request.getSession();
 
-        // TODO Eingaben prüfen und Fehler zeigen
+        if (email.length() == 0 ||
+                password.length() == 0) {
+            errors.add("Bitte füllen Sie alle Felder aus");
+        }
 
-        Benutzer user = userBean.login(username, password);
+        // Falls ein Error vorhanden, diesen ausgeben, falls nicht login durchführen
+        Dispatcher d = new Dispatcher(request, response);
+
+        if (!errors.isEmpty()) {
+            request.setAttribute("errors", errors);
+            d.navigateTo("anmelden.jsp");
+        }
+
+        User user = userBean.login(email, password);
 
         if (user == null) {
-            // TODO Logindaten wahrscheinlich falsch
+            List<String> beanErrors = userBean.getErrors();
+            beanErrors.forEach(errors::add);
         } else {
             session.setAttribute("user", user);
             new Dispatcher(request, response).navigateTo("startseite.jsp");

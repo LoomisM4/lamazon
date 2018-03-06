@@ -1,34 +1,29 @@
 package dhbw.lamazon.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.io.Serializable;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-public class User implements Serializable {
+@Table(name = "BENUTZER")
+public class User {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private long id = 0;
-    private String name = "";
-
-    public User() {
-
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    @NotNull
+    @Column(name = "BENUTZERNAME")
+    private String benutzername;
+    @NotNull
+    @Column(name = "EMAIL")
+    private String email;
+    @NotNull
+    @Column(name = "PASSWORT")
+    private String passwort;
 }
