@@ -1,5 +1,16 @@
 # IDE Files
+
+# IntelliJ
+*.iml
+*.iws
+*.ipr
 .idea/
+
+# Eclipse
+.settings/
+.classpath
+.project
+
 
 # Compiled class file
 *.class
