@@ -6,6 +6,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * mit einem Objekt dieser Klasse kann die Navigation innerhalb einer Webanwendung
+ * realisiert werden.
+ */
 class Dispatcher {
 
     public static String baseUrl;
@@ -13,6 +17,12 @@ class Dispatcher {
     private HttpServletRequest request;
     private HttpServletResponse response;
 
+    /**
+     * Konstruktor für ein neues Dispatcher-Onjekt
+     *
+     * @param request das HttpServletRequest-Objekt der Anfrage
+     * @param response das HttpServletResponse-Objekt der Anfrage
+     */
     public Dispatcher(HttpServletRequest request, HttpServletResponse response) {
         this.request = request;
         this.response = response;

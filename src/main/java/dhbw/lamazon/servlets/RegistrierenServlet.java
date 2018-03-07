@@ -35,6 +35,11 @@ public class RegistrierenServlet extends HttpServlet {
         String email = request.getParameter("email");
         String passwort1 = request.getParameter("passwort1");
         String passwort2 = request.getParameter("passwort2");
+        String vorname = request.getParameter("vorname");
+        String nachname = request.getParameter("nachname");
+        String strasse = request.getParameter("strasse");
+        String plzString = request.getParameter("plz");
+        String ort = request.getParameter("ort");
         String agb = request.getParameter("agb");
 
         List<String> errors = new ArrayList<>();
@@ -43,7 +48,12 @@ public class RegistrierenServlet extends HttpServlet {
         if (username.length() == 0 ||
                 email.length() == 0 ||
                 passwort1.length() == 0 ||
-                passwort2.length() == 0) {
+                passwort2.length() == 0 ||
+                vorname.length() == 0 ||
+                nachname.length() == 0 ||
+                strasse.length() == 0 ||
+                plzString.length() == 0 ||
+                ort.length() == 0) {
             errors.add("Bitte füllen Sie alle Felder aus");
         }
 
@@ -55,6 +65,13 @@ public class RegistrierenServlet extends HttpServlet {
             errors.add("Bitte akzeptieren sie die AGB");
         }
 
+        long plz = 0;
+        try {
+            plz = Long.valueOf(plzString);
+        } catch (ClassCastException e) {
+            errors.add("Geben Sie eine korrekte Postleitzahl an");
+        }
+
         Dispatcher d = new Dispatcher(request, response);
 
         // Falls Fehler vorhanden sind, werden diese im Request gespeichert und die Seite neugeladen
@@ -64,7 +81,7 @@ public class RegistrierenServlet extends HttpServlet {
         }
         // Falls keine Fehler vorhanden sind, wird ein neuer Benutzer angelegt
         else {
-            User user = userBean.register(username, email, passwort1);
+            User user = userBean.register(username, email, passwort1, vorname, nachname, strasse, plz, ort);
             if (user != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("user", user);

@@ -1,5 +1,5 @@
 <div style="background-color: #0053A6;">
-    <form class="form-inline" method="post">
+    <form class="form-inline" action="suchen">
         <div class="form-group">
             <a href="${url}/lamazon">
                 <img src="img/logo.jpg" style="height: 50px">

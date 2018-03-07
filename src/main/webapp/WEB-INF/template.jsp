@@ -2,8 +2,9 @@
 
 <html>
   <head>
-    <title>lamazon</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+      <title>lamazon</title>
+      <meta charset="UTF-8">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   </head>
   <body>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
@@ -15,7 +16,7 @@
       <%-- Hier wird die Toolbar zum Suchen nach Artikeln eingebunden --%>
       <jsp:include page="toolbar.jsp"/>
   </header>
-  <main>
+  <main style="margin-bottom: 40px; margin-left: 20px; margin-right: 20px">
       <%-- Einbindung der jeweils benötigen JSP (steht in "body" der Session) --%>
       <jsp:include page="${body}"/>
   </main>

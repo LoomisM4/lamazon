@@ -9,23 +9,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
 @WebServlet(urlPatterns = {
-            "/lamazon"
-        })
-public class StartseiteServlet extends HttpServlet {
+        "/suchen"
+})
+public class SuchenServlet extends HttpServlet {
     @EJB
     ArticleBean articleBean;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Article> articles = articleBean.getAllArticles();
-        HttpSession session = request.getSession();
-        session.setAttribute("articles", articles);
+        String search = request.getParameter("suchen");
 
-        new Dispatcher(request, response).navigateTo("startseite.jsp");
+        List<Article> articles = articleBean.findArticleByTitle(search);
+        request.setAttribute("articles", articles);
+
+        new Dispatcher(request, response).navigateTo("suchergebnis.jsp");
     }
 }

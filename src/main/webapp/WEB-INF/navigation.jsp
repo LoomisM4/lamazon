@@ -6,14 +6,24 @@
     </button>
     <div class="navbar-collapse collapse dual-nav w-100">
         <ul class="navbar-nav">
-            <c:if test="${empty user}">
-                <li class="nav-item active" style="padding-right: 20px">
-                    <a class="nav-link" href="${url}/registrieren">Registrieren</a>
-                </li>
-                <li class="nav-item active" style="padding-right: 20px">
-                    <a class="nav-link" href="${url}/anmelden">Anmelden</a>
-                </li>
-            </c:if>
+            <c:choose>
+                <c:when test="${empty user}">
+                    <li class="nav-item active" style="padding-right: 20px">
+                        <a class="nav-link" href="${url}/registrieren">Registrieren</a>
+                    </li>
+                    <li class="nav-item active" style="padding-right: 20px">
+                        <a class="nav-link" href="${url}/anmelden">Anmelden</a>
+                    </li>
+                </c:when>
+                <c:otherwise>
+                    <li class="nav-item active" style="padding-right: 20px">
+                        <a class="nav-link" href="${url}/meinkonto">Mein Lamazon</a>
+                    </li>
+                    <li class="nav-item active" style="padding-right: 20px">
+                        <a class="nav-link" href="${url}/abmelden">Abmelden</a>
+                    </li>
+                </c:otherwise>
+            </c:choose>
             <li class="nav-item active" style="padding-right: 20px">
                 <a class="nav-link" href="${url}/kontakt">Kontakt</a>
             </li>
@@ -21,14 +31,6 @@
     </div>
     <div class="navbar-collapse collapse dual-nav">
         <ul class="navbar-nav">
-            <c:if test="${not empty user}">
-                <li class="nav-item active" style="margin-right: auto; margin-left: auto">
-                    <a class="nav-link" href="${url}/abmelden">Abmelden</a>
-                </li>
-                <li class="nav-item active" style="margin-right: auto; margin-left: auto">
-                    <a class="nav-link" href="${url}/meinkonto">Mein Lamazon</a>
-                </li>
-            </c:if>
             <a class="navbar-brand" href="${url}/warenkorb">
                 <img src="img/warenkorb.png" width="30", height="30">
             </a>

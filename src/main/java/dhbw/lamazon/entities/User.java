@@ -7,6 +7,11 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Entity-Klasse zur Kommunikation mit der Datenbank.
+ * Auf diese Klasse darf nie direkt zugegriffen werden.
+ * Hierfür muss die passende Bean UserBean verwendet werden.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,4 +31,19 @@ public class User {
     @NotNull
     @Column(name = "PASSWORT")
     private String passwort;
+    @NotNull
+    @Column(name = "VORNAME")
+    private String vorname;
+    @NotNull
+    @Column(name = "NACHNAME")
+    private String nachname;
+    @NotNull
+    @Column(name = "STRASSE")
+    private String strasse;
+    @NotNull
+    @Column(name = "PLZ")
+    private long plz;
+    @NotNull
+    @Column(name = "ORT")
+    private String ort;
 }

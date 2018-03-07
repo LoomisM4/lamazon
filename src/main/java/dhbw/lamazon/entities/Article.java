@@ -7,6 +7,11 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Entity-Klasse zur Kommunikation mit der Datenbank.
+ * Auf diese Klasse darf nie direkt zugegriffen werden.
+ * Hierfür muss die passende Bean ArticleBean verwendet werden.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
