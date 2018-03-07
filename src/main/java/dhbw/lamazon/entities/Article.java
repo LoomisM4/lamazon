@@ -29,7 +29,4 @@ public class Article {
     @NotNull
     @Column(name = "ERSTELLER")
     private long user;
-    @NotNull
-    @Column(name = "VERFUEGBAR")
-    private boolean available = true;
 }

@@ -1,7 +1,9 @@
 <div style="background-color: #0053A6;">
     <form class="form-inline" method="post">
         <div class="form-group">
-            <img src="img/logo.jpg" style="height: 50px">
+            <a href="${url}/lamazon">
+                <img src="img/logo.jpg" style="height: 50px">
+            </a>
         </div>
         <div class="col col-md-auto">
             Kategorien

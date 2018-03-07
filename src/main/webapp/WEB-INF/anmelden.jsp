@@ -2,6 +2,9 @@
 <div style="display: flex; align-content: center; justify-content: center">
     <form method="post">
         <div class="form-group">
+            <img src="img/logo.jpg">
+        </div>
+        <div class="form-group">
             <input type="email" class="form-control form-control-sm" placeholder="E-Mail-Adresse" size="30px" name="email">
         </div>
         <div class="form-group">

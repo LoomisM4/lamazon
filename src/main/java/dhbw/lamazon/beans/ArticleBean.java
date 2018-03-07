@@ -13,7 +13,7 @@ public class ArticleBean {
     EntityManager em;
 
     public List<Article> getAllArticles() {
-        return em.createQuery("SELECT a FROM Article a WHERE a.available = TRUE").getResultList();
+        return em.createQuery("SELECT a FROM Article a").getResultList();
     }
 
     public List<Article> findArticleByTitle(String title) {
