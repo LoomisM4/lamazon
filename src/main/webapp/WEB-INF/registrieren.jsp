@@ -10,6 +10,36 @@
                 <h3>Konto anlegen</h3>
             </div>
             <div class="form-group">
+                <input type="text" class="form-control form-control-sm" placeholder="Vorname" name="vorname">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control form-control-sm" placeholder="Nachname" name="nachname">
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <input type="text" class="form-control form-control-sm" placeholder="Stra&#223;e" name="strasse">
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <input type="text" class="form-control form-control-sm" placeholder="Nr" name="hausnummer">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <input type="text" class="form-control form-control-sm" placeholder="Postleitzahl" name="plz">
+                    </div>
+                </div>
+                <div class="col-7">
+                    <div class="form-group">
+                        <input type="text" class="form-control form-control-sm" placeholder="Ort" name="ort">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
                 <input type="text" class="form-control form-control-sm" placeholder="Benutzername" size="30px" name="benutzername">
             </div>
             <div class="form-group">
@@ -19,28 +49,7 @@
                 <input type="password" class="form-control form-control-sm" placeholder="Passwort" name="passwort1">
             </div>
             <div class="form-group">
-                <input type="password" class="form-control form-control-sm" placeholder="Passwort" name="passwort2">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control form-control-sm" placeholder="Vorname" name="vorname">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control form-control-sm" placeholder="Nachname" name="nachname">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control form-control-sm" placeholder="Straße und Hausnummer" name="strasse">
-            </div>
-            <div id="row">
-                <div id="col">
-                    <div class="form-group">
-                        <input type="text" class="form-control form-control-sm" placeholder="Postleitzahl" name="plz">
-                    </div>
-                </div>
-                <div id="col">
-                    <div class="form-group">
-                        <input type="text" class="form-control form-control-sm" placeholder="Ort" name="ort">
-                    </div>
-                </div>
+                <input type="password" class="form-control form-control-sm" placeholder="Passwort wiederholen" name="passwort2">
             </div>
             <div class="form-check">
                 <input type="checkbox" class="form-check-input" name="agb">

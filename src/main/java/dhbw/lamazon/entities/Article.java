@@ -1,6 +1,5 @@
 package dhbw.lamazon.entities;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,10 +10,11 @@ import javax.validation.constraints.NotNull;
  * Entity-Klasse zur Kommunikation mit der Datenbank.
  * Auf diese Klasse darf nie direkt zugegriffen werden.
  * Hierfür muss die passende Bean ArticleBean verwendet werden.
+ *
+ * @author Marcel Wettach
  */
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "ARTIKEL")
 @Entity
 public class Article {
@@ -35,6 +35,11 @@ public class Article {
     @Column(name = "ERSTELLER")
     private long user;
 
+    /**
+     * liefer die Beschreibung des Artikels in kurzform, falls diese mehr als 150 Zeichen enthält
+     *
+     * @return eine Verkürzte Beschreibung, die mit '...' endet
+     */
     public String getShortDescription() {
         if (this.description.length() > 150) {
             return this.description.substring(0, 150) + "...";

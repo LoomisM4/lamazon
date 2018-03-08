@@ -9,8 +9,11 @@ import java.util.List;
 
 /**
  * liefert die Fachlogik für Article-Objekte
+ *
+ * @author Marcel Wettach
  */
 @Stateless
+@SuppressWarnings("unchecked")
 public class ArticleBean {
     @PersistenceContext
     EntityManager em;
@@ -46,6 +49,19 @@ public class ArticleBean {
      */
     public Article findArticleById(long id) {
         return em.find(Article.class, id);
+    }
+
+    /**
+     * Sucht alle von einem bestimmten Nutzer eingestellten Artikel
+     *
+     * @param userId die ID des Benutzers, der die Artikel eingestellt hat
+     *
+     * @return eine Liste mit von dem Benutzer eingestellten Artikeln
+     */
+    public List<Article> findArticlesFromUser(long userId) {
+        return em.createQuery("SELECT a FROM Article a WHERE a.user = :userId")
+                .setParameter("userId", userId)
+                .getResultList();
     }
 
     /**

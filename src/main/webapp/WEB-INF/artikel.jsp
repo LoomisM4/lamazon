@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="col">
-            <img src="bild.jpg" alt="Bild">
+            <img src="Bild.jpg" alt="Bild">
         </div>
     </div>
     <br>

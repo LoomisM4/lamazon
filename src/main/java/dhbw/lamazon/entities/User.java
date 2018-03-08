@@ -1,6 +1,5 @@
 package dhbw.lamazon.entities;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,10 +10,11 @@ import javax.validation.constraints.NotNull;
  * Entity-Klasse zur Kommunikation mit der Datenbank.
  * Auf diese Klasse darf nie direkt zugegriffen werden.
  * Hierfür muss die passende Bean UserBean verwendet werden.
+ *
+ * @author Marcel Wettach
  */
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "BENUTZER")
 public class User {
@@ -40,6 +40,9 @@ public class User {
     @NotNull
     @Column(name = "STRASSE")
     private String strasse;
+    @NotNull
+    @Column(name = "HAUSNUMMER")
+    private String hausnr;
     @NotNull
     @Column(name = "PLZ")
     private long plz;

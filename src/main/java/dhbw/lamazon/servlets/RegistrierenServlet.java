@@ -14,6 +14,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Marcel Wettach
+ */
 @WebServlet(urlPatterns = {
         "/registrieren"
 })
@@ -43,6 +46,7 @@ public class RegistrierenServlet extends HttpServlet {
         String vorname = request.getParameter("vorname");
         String nachname = request.getParameter("nachname");
         String strasse = request.getParameter("strasse");
+        String hausnummer = request.getParameter("hausnummer");
         String plzString = request.getParameter("plz");
         String ort = request.getParameter("ort");
         String agb = request.getParameter("agb");
@@ -57,6 +61,7 @@ public class RegistrierenServlet extends HttpServlet {
                 vorname.length() == 0 ||
                 nachname.length() == 0 ||
                 strasse.length() == 0 ||
+                hausnummer.length() == 0 ||
                 plzString.length() == 0 ||
                 ort.length() == 0) {
             errors.add("Bitte füllen Sie alle Felder aus");
@@ -86,10 +91,11 @@ public class RegistrierenServlet extends HttpServlet {
         }
         // Falls keine Fehler vorhanden sind, wird ein neuer Benutzer angelegt
         else {
-            User user = userBean.register(username, email, passwort1, vorname, nachname, strasse, plz, ort);
+            User user = userBean.register(username, email, passwort1, vorname, nachname, strasse, hausnummer, plz, ort);
             if (user != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("user", user);
+                session.setAttribute("message", "Ihr Konto wurde erfolgreich angelegt");
                 d.navigateTo("startseite.jsp");
             } else {
                 List<String> beanErrors = userBean.getErrors();

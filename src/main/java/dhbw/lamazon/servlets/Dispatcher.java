@@ -9,6 +9,8 @@ import java.io.IOException;
 /**
  * mit einem Objekt dieser Klasse kann die Navigation innerhalb einer Webanwendung
  * realisiert werden.
+ *
+ * @author Marcel Wettach
  */
 class Dispatcher {
 

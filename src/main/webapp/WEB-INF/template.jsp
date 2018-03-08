@@ -12,13 +12,14 @@
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="js/script.js"></script>
   <header>
       <%-- Hier wird die Navigationsleiste eingebunden --%>
       <jsp:include page="navigation.jsp"/>
       <%-- Hier wird die Toolbar zum Suchen nach Artikeln eingebunden --%>
       <jsp:include page="toolbar.jsp"/>
   </header>
-  <main style="margin-bottom: 50px; margin-left: 20px; margin-right: 20px">
+  <main style="margin-bottom: 80px; margin-left: 20px; margin-right: 20px">
       <%-- Hier wird eine Nachricht, nach z. B. dem erfolgreichen ausloggen angezeigt --%>
       <div id="message">
           <c:out value="${message}"/>

@@ -13,6 +13,8 @@ import java.util.List;
 
 /**
  * liefert die Fachlogik für User-Objekte
+ *
+ * @author Marcel Wettach
  */
 @Stateless
 public class UserBean {
@@ -35,6 +37,8 @@ public class UserBean {
      * ermittelt werden.
      */
     public User login(String email, String password) {
+        this.errors.clear();
+
         User user = null;
         // Hashing
         password = DigestUtils.sha256Hex(password);
@@ -45,6 +49,7 @@ public class UserBean {
                     .getSingleResult();
         } catch (NoResultException e) {
             errors.add("E-Mail-Adresse oder Passwort falsch");
+            return null;
         }
         return user;
     }
@@ -59,7 +64,8 @@ public class UserBean {
      * @param password das Password des neuen Users
      * @param vorname der Vorname des neuen Users
      * @param nachname der Nachname des neuen Users
-     * @param strasse die Straße inkl. der Hausnummer des neuen Users
+     * @param strasse die Straße des neuen Users
+     * @param hausnr die Hausnummer des neuen Users
      * @param plz die Postleitzahl des neuen Users
      * @param ort der Ort des neuen Users
      *
@@ -67,7 +73,9 @@ public class UserBean {
      * Dieses muss anschließend noch in der Session gespeichert werden.
      * Falls Fehler aufgetreten sind, können diese mit der Methode getErrors() ermittelt werden.
      */
-    public User register(String username, String email, String password, String vorname, String nachname, String strasse, long plz, String ort) {
+    public User register(String username, String email, String password, String vorname, String nachname, String strasse, String hausnr, long plz, String ort) {
+        this.errors.clear();
+
         User u = new User();
         // Passwort hashen
         password = DigestUtils.sha256Hex(password);
@@ -78,25 +86,51 @@ public class UserBean {
         u.setVorname(vorname);
         u.setNachname(nachname);
         u.setStrasse(strasse);
+        u.setHausnr(hausnr);
         u.setPlz(plz);
         u.setOrt(ort);
 
-        // TODO profen, ob bereits ein Konto zurE-Mail Adresse besteht
-        Object o = null;
         try {
-            o = em.createQuery("SELECT u FROM User u WHERE u.email = :email")
+            Object o = em.createQuery("SELECT u FROM User u WHERE u.email = :email")
                     .setParameter("email", email)
                     .getSingleResult();
         } catch (NoResultException e) {
-            // TODO evtl kann das verbesert werden -> hier E-Mail noch nicht vorhanden
-        }
-
-        if (o != null) {
-            errors.add("Zu jeder E-Mail-Adresse darf nur ein Konto vorhanden sein");
-            return null;
-        } else {
+            // Falls zu dieser E-Mail-Adresse noch kein Account vorhanden ist, wird dieser Teil ausgeführt
             em.persist(u);
             return em.merge(u);
         }
+        // Falls diese E-Mail-Adresse schon vergeben ist, wird ein Fehler gespeichert
+        errors.add("Zu jeder E-Mail-Adresse darf nur ein Konto vorhanden sein");
+        return null;
+    }
+
+    /**
+     * diese Methode ändert die Daten eines User-Objektes und speichert die Veränderungen in der Datenbank
+     *
+     * @param user das User-Objekt, das verändert werden soll
+     * @param newUsername der neue Benutzername
+     * @param newEmail die neue E-Mail-Adresse
+     * @param newPassword das neue Passwort
+     * @param newVorname der neue Vorname
+     * @param newNachname der neue Nachname
+     * @param newStrasse die neue Strasse
+     * @param newHausnr die neue Hausnummer
+     * @param newPlz die neue Postleitzahl
+     * @param newOrt der neue Wohnort
+     *
+     * @return das neue, veränderte User-Objekt
+     */
+    public User changeData(User user, String newUsername, String newEmail, String newPassword, String newVorname, String newNachname, String newStrasse, String newHausnr, long newPlz, String newOrt) {
+        user.setBenutzername(newUsername);
+        user.setEmail(newEmail);
+        user.setPasswort(DigestUtils.sha256Hex(newPassword));
+        user.setVorname(newVorname);
+        user.setNachname(newNachname);
+        user.setStrasse(newStrasse);
+        user.setHausnr(newHausnr);
+        user.setPlz(newPlz);
+        user.setOrt(newOrt);
+
+        return em.merge(user);
     }
 }
