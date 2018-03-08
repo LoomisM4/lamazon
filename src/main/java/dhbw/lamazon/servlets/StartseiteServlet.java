@@ -18,12 +18,16 @@ import java.util.List;
         })
 public class StartseiteServlet extends HttpServlet {
     @EJB
-    ArticleBean articleBean;
+    private ArticleBean articleBean;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Article> articles = articleBean.getAllArticles();
+        // Evtl. vorhandene Fehler und Nachrichten aus der Session löschen
         HttpSession session = request.getSession();
+        session.removeAttribute("errors");
+        session.removeAttribute("message");
+
+        List<Article> articles = articleBean.getAllArticles();
         session.setAttribute("articles", articles);
 
         new Dispatcher(request, response).navigateTo("startseite.jsp");

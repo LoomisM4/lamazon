@@ -19,10 +19,15 @@ import java.util.List;
 })
 public class RegistrierenServlet extends HttpServlet {
     @EJB
-    UserBean userBean;
+    private UserBean userBean;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Evtl. vorhandene Fehler und Nachrichten aus der Session löschen
+        HttpSession session = request.getSession();
+        session.removeAttribute("errors");
+        session.removeAttribute("message");
+
         new Dispatcher(request, response).navigateTo("registrieren.jsp");
     }
 
@@ -68,7 +73,7 @@ public class RegistrierenServlet extends HttpServlet {
         long plz = 0;
         try {
             plz = Long.valueOf(plzString);
-        } catch (ClassCastException e) {
+        } catch (NumberFormatException e) {
             errors.add("Geben Sie eine korrekte Postleitzahl an");
         }
 
@@ -88,7 +93,7 @@ public class RegistrierenServlet extends HttpServlet {
                 d.navigateTo("startseite.jsp");
             } else {
                 List<String> beanErrors = userBean.getErrors();
-                beanErrors.forEach(errors::add);
+                errors.addAll(beanErrors);
                 request.setAttribute("errors", errors);
                 d.navigateTo("registrieren.jsp");
             }

@@ -38,6 +38,17 @@ public class ArticleBean {
     }
 
     /**
+     * Liefert den Atikel mit der übergebenen ID zurück
+     *
+     * @param id die ID des zu suchenden Artikels
+     *
+     * @return ein Artikel-Objekt, falls ein passender Artikel gefunden wurde
+     */
+    public Article findArticleById(long id) {
+        return em.find(Article.class, id);
+    }
+
+    /**
      * Erstellt einen neuen Artikel und speichert diesen in der Datenbank
      *
      * @param title der Titel des neuen Artikels

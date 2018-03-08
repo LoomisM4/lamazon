@@ -34,4 +34,11 @@ public class Article {
     @NotNull
     @Column(name = "ERSTELLER")
     private long user;
+
+    public String getShortDescription() {
+        if (this.description.length() > 150) {
+            return this.description.substring(0, 150) + "...";
+        }
+        return this.description;
+    }
 }

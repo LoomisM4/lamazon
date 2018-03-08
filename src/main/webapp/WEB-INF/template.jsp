@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -5,6 +6,7 @@
       <title>lamazon</title>
       <meta charset="UTF-8">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+      <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
@@ -16,7 +18,19 @@
       <%-- Hier wird die Toolbar zum Suchen nach Artikeln eingebunden --%>
       <jsp:include page="toolbar.jsp"/>
   </header>
-  <main style="margin-bottom: 40px; margin-left: 20px; margin-right: 20px">
+  <main style="margin-bottom: 50px; margin-left: 20px; margin-right: 20px">
+      <%-- Hier wird eine Nachricht, nach z. B. dem erfolgreichen ausloggen angezeigt --%>
+      <div id="message">
+          <c:out value="${message}"/>
+      </div>
+      <%-- Hier werden evtl. vorhandene Fehler angezeigt --%>
+      <div id="error">
+          <c:forEach var="error" items="${errors}">
+              <div>
+                  <c:out value="${error}"/>
+              </div>
+          </c:forEach>
+      </div>
       <%-- Einbindung der jeweils benötigen JSP (steht in "body" der Session) --%>
       <jsp:include page="${body}"/>
   </main>

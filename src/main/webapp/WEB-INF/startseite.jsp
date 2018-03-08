@@ -41,11 +41,29 @@
     </div>
 </c:if>
 
-<c:forEach var="article" items="${articles}">
-    <div>
-        ${article.getTitle()}
-    </div>
-    <div>
-        ${article.getPrice()}
-    </div>
-</c:forEach>
+<br>
+<h4>Weitere Artikel</h4>
+<div class="container-fluid" style="width: 60%">
+    <c:forEach var="article" items="${articles}">
+        <div class="row" style="border-style: solid; border-color: black; border-width: thin; margin-bottom: 1px">
+            <div class="col">
+                <a href="${url}/artikel?id=${article.getId()}">
+                    <img src="bild.jpg" alt="Bild" width="80px" height="80px">
+                </a>
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <a href="${url}/artikel?id=${article.getId()}">
+                        <h5><c:out value="${article.getTitle()}"/></h5>
+                    </a>
+                </div>
+                <div class="row">
+                    <c:out value="${article.getShortDescription()}"/>
+                </div>
+            </div>
+            <div class="col">
+                <c:out value="${article.getPrice()}"/> EUR
+            </div>
+        </div>
+    </c:forEach>
+</div>

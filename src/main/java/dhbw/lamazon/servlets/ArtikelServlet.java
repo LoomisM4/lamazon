@@ -11,12 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
+import java.util.ArrayList;
 
 @WebServlet(urlPatterns = {
-        "/suchen"
+        "/artikel"
 })
-public class SuchenServlet extends HttpServlet {
+public class ArtikelServlet extends HttpServlet {
     @EJB
     private ArticleBean articleBean;
 
@@ -26,12 +26,24 @@ public class SuchenServlet extends HttpServlet {
         HttpSession session = request.getSession();
         session.removeAttribute("errors");
         session.removeAttribute("message");
+        Dispatcher d = new Dispatcher(request, response);
 
-        String search = request.getParameter("suchen");
+        String idText = request.getParameter("id");
+        long id = 0;
+        try {
+            id = Long.valueOf(idText);
+        } catch (NumberFormatException e) {
+            request.setAttribute("errors", new ArrayList<String>().add("Da ist etwas schiefgelaufen"));
+            d.navigateTo("artikel.jsp");
+        }
 
-        List<Article> articles = articleBean.findArticleByTitle(search);
-        request.setAttribute("articles", articles);
+        Article article = articleBean.findArticleById(id);
+        if (article == null) {
+            request.setAttribute("errors", new ArrayList<String>().add("Der gesuchte Artikel wurde nicht gefunden"));
+        } else {
+            request.setAttribute("article", article);
+        }
 
-        new Dispatcher(request, response).navigateTo("suchergebnis.jsp");
+        d.navigateTo("artikel.jsp");
     }
 }

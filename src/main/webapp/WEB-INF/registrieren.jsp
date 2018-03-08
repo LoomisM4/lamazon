@@ -51,7 +51,3 @@
         </div>
     </form>
 </div>
-<br>
-<c:forEach var="error" items="${errors}">
-    <div><c:out value="${error}"/></div>
-</c:forEach>

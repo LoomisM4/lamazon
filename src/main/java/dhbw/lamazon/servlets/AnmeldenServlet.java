@@ -19,11 +19,16 @@ import java.util.List;
 })
 public class AnmeldenServlet extends HttpServlet {
     @EJB
-    UserBean userBean;
-    List<String> errors = new ArrayList<>();
+    private UserBean userBean;
+    private List<String> errors = new ArrayList<>();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Evtl. vorhandene Fehler und Nachrichten aus der Session löschen
+        HttpSession session = request.getSession();
+        session.removeAttribute("errors");
+        session.removeAttribute("message");
+
         new Dispatcher(request, response).navigateTo("anmelden.jsp");
     }
 
@@ -54,7 +59,7 @@ public class AnmeldenServlet extends HttpServlet {
 
         if (user == null) {
             List<String> beanErrors = userBean.getErrors();
-            beanErrors.forEach(errors::add);
+            errors.addAll(beanErrors);
         } else {
             session.setAttribute("user", user);
             new Dispatcher(request, response).navigateTo("startseite.jsp");
