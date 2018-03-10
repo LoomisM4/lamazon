@@ -74,6 +74,18 @@ public class MeinKontoServlet extends HttpServlet {
         String passwort = request.getParameter("passwort");
         User user = (User) session.getAttribute("user");
 
+        if (vorname.length() == 0 ||
+                nachname.length() == 0 ||
+                strasse.length() == 0 ||
+                hausnr.length() == 0 ||
+                plzString.length() == 0 ||
+                ort.length() == 0 ||
+                benutzername.length() == 0 ||
+                email.length() == 0 ||
+                passwort.length() == 0) {
+            this.errors.add("Bitte füllen Sie alle Felder aus, wenn Sie Daten ändern wollen");
+        }
+
         long plz = 0;
         try {
             plz = Long.valueOf(plzString);
@@ -81,6 +93,13 @@ public class MeinKontoServlet extends HttpServlet {
             this.errors.add("Geben Sie eine gültige PLZ an");
         }
 
-        userBean.changeData(user, benutzername, email, passwort, vorname, nachname, strasse, hausnr, plz, ort);
+        if (errors.isEmpty()) {
+            userBean.changeData(user, benutzername, email, passwort, vorname, nachname, strasse, hausnr, plz, ort);
+            request.setAttribute("message", new String("Ihre Daten wurden erfolgreich geändert"));
+        } else {
+            request.setAttribute("errors", errors);
+        }
+
+        new Dispatcher(request, response).navigateTo("meinKonto.jsp");
     }
 }

@@ -56,7 +56,7 @@ public class UserBean {
 
     /**
      * Erstellt einen neuen User und speichert diesen in der Datenbank.
-     * Das Passwort wird hierbei Verschlüsselt in der Datenbank abgelegt
+     * Das Passwort wird hierbei verschlüsselt in der Datenbank abgelegt
      * (das Hashing erfolgt automatisch).
      *
      * @param username der Benutzername des neuen Users
