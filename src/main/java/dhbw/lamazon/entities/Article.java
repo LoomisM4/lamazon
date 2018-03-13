@@ -1,5 +1,6 @@
 package dhbw.lamazon.entities;
 
+import dhbw.lamazon.Category;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,20 +21,27 @@ import javax.validation.constraints.NotNull;
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
+    @Column(name = "ARTIKELNUMMER")
     private long id = 0;
     @NotNull
-    @Column(name = "TITEL")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "VERKAEUFER")
+    private User user;
+    @NotNull
+    @Column(name = "BEZEICHNUNG")
     private String title;
     @NotNull
-    @Column(name = "BESCHREIBUNG")
+    @Column(name = "ARTIKELBESCHREIBUNG")
     private String description;
     @NotNull
     @Column(name = "PREIS")
     private double price;
-    @NotNull
-    @Column(name = "ERSTELLER")
-    private long user;
+    @Column(name = "FARBE")
+    private String color;
+    @Column(name = "BILD")
+    private byte[] image;
+    @Column(name = "KATEGORIE")
+    private Category category;
 
     /**
      * liefer die Beschreibung des Artikels in kurzform, falls diese mehr als 150 Zeichen enthält

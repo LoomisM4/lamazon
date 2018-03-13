@@ -7,10 +7,14 @@
         </div>
     </c:when>
     <c:otherwise>
-        <c:forEach var="article" items="${articles}">
-            <div>
-                <h4>${article.getTitle()}</h4>
-            </div>
-        </c:forEach>
+        <div class="container">
+            <c:forEach var="article" items="${articles}">
+                <div class="row">
+                    <div class="col">
+                        <h4>${article.getTitle()}</h4>
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
     </c:otherwise>
 </c:choose>

@@ -1,6 +1,7 @@
 package dhbw.lamazon.beans;
 
 import dhbw.lamazon.entities.Article;
+import dhbw.lamazon.entities.User;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -54,13 +55,13 @@ public class ArticleBean {
     /**
      * Sucht alle von einem bestimmten Nutzer eingestellten Artikel
      *
-     * @param userId die ID des Benutzers, der die Artikel eingestellt hat
+     * @param user das User-Objekt des Benutzers, der die Artikel eingestellt hat
      *
      * @return eine Liste mit von dem Benutzer eingestellten Artikeln
      */
-    public List<Article> findArticlesFromUser(long userId) {
-        return em.createQuery("SELECT a FROM Article a WHERE a.user = :userId")
-                .setParameter("userId", userId)
+    public List<Article> findArticlesByUser(User user) {
+        return em.createQuery("SELECT a FROM Article a WHERE a.user = :user")
+                .setParameter("user", user)
                 .getResultList();
     }
 
@@ -70,9 +71,9 @@ public class ArticleBean {
      * @param title der Titel des neuen Artikels
      * @param descirption die Beschreibung des Artikels
      * @param price der gewünschte Preis des Artikels
-     * @param user die ID des Benutzers, der den Artikel erstellen möchte
+     * @param user das User-Objekt des Benutzers, der den Artikel erstellen möchte
      */
-    public void createNewArticle(String title, String descirption, double price, long user) {
+    public void createNewArticle(String title, String descirption, double price, User user) {
         Article article = new Article();
         article.setTitle(title);
         article.setDescription(descirption);

@@ -48,7 +48,7 @@ public class MeinKontoServlet extends HttpServlet {
             d.navigateTo("anmelden.jsp");
         } else {
             // alle vom Nutzer eingestellten Artikel werden eingelesen und im Request gespeichert
-            List<Article> articles = articleBean.findArticlesFromUser(user.getId());
+            List<Article> articles = articleBean.findArticlesByUser(user);
             request.setAttribute("articles", articles);
 
             d.navigateTo("meinKonto.jsp");

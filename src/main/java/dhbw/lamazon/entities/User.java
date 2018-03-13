@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * Entity-Klasse zur Kommunikation mit der Datenbank.
@@ -49,4 +50,6 @@ public class User {
     @NotNull
     @Column(name = "ORT")
     private String ort;
+    @OneToMany(mappedBy = "user")
+    private List<Article> articles;
 }
