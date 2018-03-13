@@ -21,7 +21,7 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
+    @Column(name = "BENUTZER_ID")
     private long id = 0;
     @NotNull
     @Column(name = "BENUTZERNAME")
@@ -52,4 +52,8 @@ public class User {
     private String ort;
     @OneToMany(mappedBy = "user")
     private List<Article> articles;
+    @OneToMany(mappedBy = "receiver")
+    private List<Message> receivedMessages;
+    @OneToMany(mappedBy = "sender")
+    private List<Message> sendMessages;
 }
