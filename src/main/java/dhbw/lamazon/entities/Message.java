@@ -5,12 +5,14 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.sql.Timestamp;
+import java.util.Objects;
 
 /**
  * Entity-Klasse zur Kommunikation mit der Datenbank.
  * Auf diese Klasse darf nie direkt zugegriffen werden.
- * Über Fremdschlüssel sind passende User-Objekte verknüft, die mit der UserBean verwendet werden können
+ * Über Fremdschlüssel sind passende User-Objekte verknüft, die mit der UserBean verwendet werden können.
+ * Alternativ, kann die MessageBean dazu verwendet werden, neue Nachrichten zu erstellen und zu versenden.
  *
  * @author Marcel Wettach
  */
@@ -34,7 +36,21 @@ public class Message {
     @NotNull
     @Column(name = "NACHRICHT")
     private String message;
-    @NotNull
     @Column(name = "DATUM")
-    private Date date;
+    private Timestamp date;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Message message = (Message) o;
+        return id == message.id;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(id);
+        result = 31 * result;
+        return result;
+    }
 }

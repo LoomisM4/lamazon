@@ -1,5 +1,7 @@
 package dhbw.lamazon.servlets;
 
+import dhbw.lamazon.Errors;
+import dhbw.lamazon.Messages;
 import dhbw.lamazon.beans.UserBean;
 import dhbw.lamazon.entities.User;
 
@@ -26,10 +28,10 @@ public class RegistrierenServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Evtl. vorhandene Fehler und Nachrichten aus der Session löschen
+        // Evtl. vorhandene Fehler und Nachrichten löschen
         HttpSession session = request.getSession();
-        session.removeAttribute("errors");
-        session.removeAttribute("message");
+        Errors.clear();
+        Messages.clear();
 
         new Dispatcher(request, response).navigateTo("registrieren.jsp");
     }
@@ -64,29 +66,28 @@ public class RegistrierenServlet extends HttpServlet {
                 hausnummer.length() == 0 ||
                 plzString.length() == 0 ||
                 ort.length() == 0) {
-            errors.add("Bitte füllen Sie alle Felder aus");
+            Errors.add("Bitte füllen Sie alle Felder aus");
         }
 
         if (!passwort1.equals(passwort2)) {
-            errors.add("Die beiden Passwörter müssen übereinstimmen");
+            Errors.add("Die beiden Passwörter müssen übereinstimmen");
         }
 
         if (agb == null) {
-            errors.add("Bitte akzeptieren sie die AGB");
+            Errors.add("Bitte akzeptieren sie die AGB");
         }
 
         long plz = 0;
         try {
             plz = Long.valueOf(plzString);
         } catch (NumberFormatException e) {
-            errors.add("Geben Sie eine korrekte Postleitzahl an");
+            Errors.add("Geben Sie eine korrekte Postleitzahl an");
         }
 
         Dispatcher d = new Dispatcher(request, response);
 
         // Falls Fehler vorhanden sind, werden diese im Request gespeichert und die Seite neugeladen
-        if (!errors.isEmpty()) {
-            request.setAttribute("errors", errors);
+        if (!Errors.isEmpty()) {
             d.navigateTo("registrieren.jsp");
         }
         // Falls keine Fehler vorhanden sind, wird ein neuer Benutzer angelegt
@@ -95,12 +96,9 @@ public class RegistrierenServlet extends HttpServlet {
             if (user != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("user", user);
-                session.setAttribute("message", "Ihr Konto wurde erfolgreich angelegt");
+                Messages.add("Ihr Konto wurde erfolgreich angelegt");
                 d.navigateTo("startseite.jsp");
             } else {
-                List<String> beanErrors = userBean.getErrors();
-                errors.addAll(beanErrors);
-                request.setAttribute("errors", errors);
                 d.navigateTo("registrieren.jsp");
             }
         }

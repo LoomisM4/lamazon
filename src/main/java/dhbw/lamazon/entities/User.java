@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Entity-Klasse zur Kommunikation mit der Datenbank.
@@ -56,4 +57,23 @@ public class User {
     private List<Message> receivedMessages;
     @OneToMany(mappedBy = "sender")
     private List<Message> sendMessages;
+
+    public String toString() {
+        return this.vorname + " " + this.nachname;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(id);
+        result = 31 * result;
+        return result;
+    }
 }

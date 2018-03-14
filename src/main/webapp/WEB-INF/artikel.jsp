@@ -18,4 +18,10 @@
     <div>
         <c:out value="${article.getDescription()}"/>
     </div>
+    <br>
+    <div>
+        <a href="${url}/neuenachricht">
+            <button type="button" class="btn btn-primary">Nachricht an Verkäufer</button>
+        </a>
+    </div>
 </div>

@@ -1,5 +1,7 @@
 package dhbw.lamazon.servlets;
 
+import dhbw.lamazon.Errors;
+import dhbw.lamazon.Messages;
 import dhbw.lamazon.beans.ArticleBean;
 import dhbw.lamazon.beans.UserBean;
 import dhbw.lamazon.entities.Article;
@@ -13,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,23 +29,19 @@ public class MeinKontoServlet extends HttpServlet {
     @EJB
     private ArticleBean articleBean;
 
-    private List<String> errors = new ArrayList<>();
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Evtl. vorhandene Fehler und Nachrichten aus der Session löschen
+        // Evtl. vorhandene Fehler und Nachrichten löschen
         HttpSession session = request.getSession();
-        session.removeAttribute("errors");
-        session.removeAttribute("message");
-        this.errors.clear();
+        Errors.clear();
+        Messages.clear();
 
         Dispatcher d = new Dispatcher(request, response);
         User user = (User) session.getAttribute("user");
 
         // falls kein User eingeloggt ist, wird automatisch die Seite zum Einloggen angezeigt
         if (user == null) {
-            session.setAttribute("errors", new ArrayList<String>().add("Sie müssen eingeloggt sein, um diesen Bereich zu betreten"));
-
+            Errors.add("Sie müssen eingeloggt sein, um diesen Bereich zu betreten");
             d.navigateTo("anmelden.jsp");
         } else {
             // alle vom Nutzer eingestellten Artikel werden eingelesen und im Request gespeichert
@@ -57,9 +54,9 @@ public class MeinKontoServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Errors und Nachrichten aus der Session löschen
-        request.removeAttribute("errors");
-        request.removeAttribute("message");
+        // Evtl. vorhandene Fehler und Nachrichten löschen
+        Errors.clear();
+        Messages.clear();
 
         HttpSession session = request.getSession();
 
@@ -83,21 +80,19 @@ public class MeinKontoServlet extends HttpServlet {
                 benutzername.length() == 0 ||
                 email.length() == 0 ||
                 passwort.length() == 0) {
-            this.errors.add("Bitte füllen Sie alle Felder aus, wenn Sie Daten ändern wollen");
+            Errors.add("Bitte füllen Sie alle Felder aus, wenn Sie Daten ändern wollen");
         }
 
         long plz = 0;
         try {
             plz = Long.valueOf(plzString);
         } catch (NumberFormatException e) {
-            this.errors.add("Geben Sie eine gültige PLZ an");
+            Errors.add("Geben Sie eine gültige PLZ an");
         }
 
-        if (errors.isEmpty()) {
+        if (Errors.isEmpty()) {
             userBean.changeData(user, benutzername, email, passwort, vorname, nachname, strasse, hausnr, plz, ort);
-            request.setAttribute("message", new String("Ihre Daten wurden erfolgreich geändert"));
-        } else {
-            request.setAttribute("errors", errors);
+            Messages.add("Ihre Daten wurden erfolgreich geändert");
         }
 
         new Dispatcher(request, response).navigateTo("meinKonto.jsp");

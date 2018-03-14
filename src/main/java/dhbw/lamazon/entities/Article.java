@@ -1,11 +1,12 @@
 package dhbw.lamazon.entities;
 
-import dhbw.lamazon.Category;
+import dhbw.lamazon.enums.Category;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 /**
  * Entity-Klasse zur Kommunikation mit der Datenbank.
@@ -53,5 +54,20 @@ public class Article {
             return this.description.substring(0, 150) + "...";
         }
         return this.description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Article artikel = (Article) o;
+        return id == artikel.id;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(id);
+        result = 31 * result;
+        return result;
     }
 }

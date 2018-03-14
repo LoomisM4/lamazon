@@ -1,15 +1,13 @@
 package dhbw.lamazon.beans;
 
+import dhbw.lamazon.Errors;
 import dhbw.lamazon.entities.User;
-import lombok.Getter;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * liefert die Fachlogik für User-Objekte
@@ -20,8 +18,6 @@ import java.util.List;
 public class UserBean {
     @PersistenceContext
     EntityManager em;
-    @Getter
-    List<String> errors = new ArrayList<>();
 
     /**
      * gleicht die übergebenen Daten mit den in der Datenbank gespeicherten Werten ab
@@ -37,19 +33,14 @@ public class UserBean {
      * ermittelt werden.
      */
     public User login(String email, String password) {
-        this.errors.clear();
-
         User user = null;
-        // Hashing
-        password = DigestUtils.sha256Hex(password);
         try {
             user = (User) em.createQuery("SELECT u FROM User u WHERE u.email = :email AND u.passwort = :passwort")
                     .setParameter("email", email)
-                    .setParameter("passwort", password)
+                    .setParameter("passwort", DigestUtils.sha256Hex(password))
                     .getSingleResult();
         } catch (NoResultException e) {
-            errors.add("E-Mail-Adresse oder Passwort falsch");
-            return null;
+            Errors.add("E-Mail-Adresse oder Passwort falsch");
         }
         return user;
     }
@@ -74,15 +65,12 @@ public class UserBean {
      * Falls Fehler aufgetreten sind, können diese mit der Methode getErrors() ermittelt werden.
      */
     public User register(String username, String email, String password, String vorname, String nachname, String strasse, String hausnr, long plz, String ort) {
-        this.errors.clear();
-
         User u = new User();
         // Passwort hashen
-        password = DigestUtils.sha256Hex(password);
         // User speichern
         u.setBenutzername(username);
         u.setEmail(email);
-        u.setPasswort(password);
+        u.setPasswort(DigestUtils.sha256Hex(password));
         u.setVorname(vorname);
         u.setNachname(nachname);
         u.setStrasse(strasse);
@@ -100,7 +88,7 @@ public class UserBean {
             return em.merge(u);
         }
         // Falls diese E-Mail-Adresse schon vergeben ist, wird ein Fehler gespeichert
-        errors.add("Zu jeder E-Mail-Adresse darf nur ein Konto vorhanden sein");
+        Errors.add("Zu jeder E-Mail-Adresse darf nur ein Konto vorhanden sein");
         return null;
     }
 

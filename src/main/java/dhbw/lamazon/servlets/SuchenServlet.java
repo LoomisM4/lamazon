@@ -1,5 +1,7 @@
 package dhbw.lamazon.servlets;
 
+import dhbw.lamazon.Errors;
+import dhbw.lamazon.Messages;
 import dhbw.lamazon.beans.ArticleBean;
 import dhbw.lamazon.entities.Article;
 
@@ -9,7 +11,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -25,10 +26,9 @@ public class SuchenServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Evtl. vorhandene Fehler und Nachrichten aus der Session löschen
-        HttpSession session = request.getSession();
-        session.removeAttribute("errors");
-        session.removeAttribute("message");
+        // Evtl. vorhandene Fehler und Nachrichten löschen
+        Errors.clear();
+        Messages.clear();
 
         String search = request.getParameter("suchen");
 
