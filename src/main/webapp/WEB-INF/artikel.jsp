@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="col">
-            <img src="Bild.jpg" alt="Bild">
+            <img src="${url}/image?articleId=${article.getId()}" alt="Bild">
         </div>
     </div>
     <br>

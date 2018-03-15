@@ -4,8 +4,12 @@ import dhbw.lamazon.enums.Category;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.imageio.ImageIO;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -55,6 +59,18 @@ public class Article {
             return this.description.substring(0, 150) + "...";
         }
         return this.description;
+    }
+
+    public BufferedImage getImage() {
+        if (image != null) {
+            ByteArrayInputStream stream = new ByteArrayInputStream(image);
+            try {
+                return ImageIO.read(stream);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 
     @Override

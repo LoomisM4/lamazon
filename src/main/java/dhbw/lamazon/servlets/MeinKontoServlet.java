@@ -33,19 +33,18 @@ public class MeinKontoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
 
-        Dispatcher d = new Dispatcher(request, response);
         User user = (User) session.getAttribute("user");
 
         // falls kein User eingeloggt ist, wird automatisch die Seite zum Einloggen angezeigt
         if (user == null) {
             Errors.add("Sie müssen eingeloggt sein, um diesen Bereich zu betreten");
-            d.navigateTo("anmelden.jsp");
+            response.sendRedirect("/anmelden");
         } else {
             // alle vom Nutzer eingestellten Artikel werden eingelesen und im Request gespeichert
             List<Article> articles = articleBean.findArticlesByUser(user);
             request.setAttribute("articles", articles);
 
-            d.navigateTo("meinKonto.jsp");
+            new Dispatcher(request, response).navigateTo("meinKonto.jsp");
         }
     }
 
