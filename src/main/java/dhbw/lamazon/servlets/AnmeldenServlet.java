@@ -30,8 +30,6 @@ public class AnmeldenServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Errors.clear();
-
         String email = request.getParameter("email");
         String password = request.getParameter("passwort");
 

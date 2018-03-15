@@ -28,19 +28,11 @@ public class RegistrierenServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Evtl. vorhandene Fehler und Nachrichten löschen
-        HttpSession session = request.getSession();
-        Errors.clear();
-        Messages.clear();
-
         new Dispatcher(request, response).navigateTo("registrieren.jsp");
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Error aus der Session löschen
-        request.removeAttribute("errors");
-
         String username = request.getParameter("benutzername");
         String email = request.getParameter("email");
         String passwort1 = request.getParameter("passwort1");

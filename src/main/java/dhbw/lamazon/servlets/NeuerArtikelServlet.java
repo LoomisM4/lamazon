@@ -1,18 +1,25 @@
 package dhbw.lamazon.servlets;
 
 import dhbw.lamazon.Errors;
-import dhbw.lamazon.Messages;
 import dhbw.lamazon.beans.ArticleBean;
 import dhbw.lamazon.entities.User;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import javax.ejb.EJB;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Marcel Wettach
@@ -26,10 +33,6 @@ public class NeuerArtikelServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Evtl. vorhandene Fehler und Nachrichten löschen
-        Errors.clear();
-        Messages.clear();
-
         HttpSession session = request.getSession();
         Object o = session.getAttribute("user");
 
@@ -43,15 +46,55 @@ public class NeuerArtikelServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String bezeichnung = request.getParameter("bezeichnung");
-        String beschreibung = request.getParameter("beschreibung");
-        String preisText = request.getParameter("preis");
+        List<FileItem> items = this.ProcessRequest(request);
+        List<String> values = new ArrayList<>();
+        byte[] image = null;
+        for (FileItem item : items) {
+            if (item.isFormField()) {
+                values.add(item.getString());
+            } else {
+                image = item.get();
+            }
+        }
+
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        double preis = Double.valueOf(preisText);
 
-        articelBean.createNewArticle(bezeichnung, beschreibung, preis, user);
-        request.setAttribute("message", new String("Ihr Artikel wurde erfolgreich eingestellt"));
-        new Dispatcher(request, response).navigateTo("startseite.jsp");
+        double preis = 0;
+        try {
+            preis = Double.valueOf(values.get(2));
+        } catch (NumberFormatException e) {
+            Errors.add("Geben Sie einen gültigen Preis ein");
+        }
+
+        if (Errors.isEmpty()) {
+            articelBean.createNewArticle(values.get(0), values.get(1), preis, user, image, null, null);
+            request.setAttribute("message", new String("Ihr Artikel wurde erfolgreich eingestellt"));
+            response.sendRedirect("/startseite");
+        }
+        new Dispatcher(request, response).navigateTo("neuerArtikel.jsp");
+    }
+
+    private List<FileItem> ProcessRequest(HttpServletRequest request) {
+        // Create a factory for disk-based file items
+        DiskFileItemFactory factory = new DiskFileItemFactory();
+
+        // Configure a repository (to ensure a secure temp location is used)
+        ServletContext servletContext = this.getServletConfig().getServletContext();
+        File repository = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
+        factory.setRepository(repository);
+
+        // Create a new file upload handler
+        ServletFileUpload upload = new ServletFileUpload(factory);
+
+        List<FileItem> fileItems = null;
+
+        // Parse the request
+        try {
+            fileItems = upload.parseRequest(request);
+        } catch (FileUploadException e) {
+            e.printStackTrace();
+        }
+        return fileItems;
     }
 }

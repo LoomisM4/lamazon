@@ -21,7 +21,7 @@
     <br>
     <div>
         <a href="${url}/neuenachricht">
-            <button type="button" class="btn btn-primary">Nachricht an Verkäufer</button>
+            <button type="button" class="btn btn-primary">Nachricht an Verk&#228;ufer</button>
         </a>
     </div>
 </div>

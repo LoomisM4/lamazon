@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.sql.Timestamp;
 
 /**
  * Entity-Klasse zur Kommunikation mit der Datenbank.
@@ -35,6 +35,6 @@ public class Contract {
     @JoinColumn(name = "ARTIKEL")
     private Article article;
     @NotNull
-    @JoinColumn(name = "DATUM")
-    private Date date;
+    @Column(name = "DATUM")
+    private Timestamp date;
 }

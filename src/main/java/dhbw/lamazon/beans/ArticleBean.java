@@ -2,6 +2,7 @@ package dhbw.lamazon.beans;
 
 import dhbw.lamazon.entities.Article;
 import dhbw.lamazon.entities.User;
+import dhbw.lamazon.enums.Category;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -73,12 +74,15 @@ public class ArticleBean {
      * @param price der gewünschte Preis des Artikels
      * @param user das User-Objekt des Benutzers, der den Artikel erstellen möchte
      */
-    public void createNewArticle(String title, String descirption, double price, User user) {
+    public void createNewArticle(String title, String descirption, double price, User user, byte[] image, String color, Category category) {
         Article article = new Article();
         article.setTitle(title);
         article.setDescription(descirption);
         article.setPrice(price);
         article.setUser(user);
+        article.setImage(image);
+        article.setColor(color);
+        article.setCategory(category);
 
         em.persist(article);
     }

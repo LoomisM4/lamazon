@@ -31,10 +31,7 @@ public class MeinKontoServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Evtl. vorhandene Fehler und Nachrichten löschen
         HttpSession session = request.getSession();
-        Errors.clear();
-        Messages.clear();
 
         Dispatcher d = new Dispatcher(request, response);
         User user = (User) session.getAttribute("user");
@@ -54,10 +51,6 @@ public class MeinKontoServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Evtl. vorhandene Fehler und Nachrichten löschen
-        Errors.clear();
-        Messages.clear();
-
         HttpSession session = request.getSession();
 
         String vorname = request.getParameter("vorname");

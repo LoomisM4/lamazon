@@ -27,10 +27,6 @@ public class NeueNachrichtServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Evtl. vorhandene Fehler und Nachrichten löschen
-        Errors.clear();
-        Messages.clear();
-
         HttpSession session = request.getSession();
         Object o = session.getAttribute("user");
         if (o == null) {

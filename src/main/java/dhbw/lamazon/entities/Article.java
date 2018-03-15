@@ -39,6 +39,7 @@ public class Article {
     private double price;
     @Column(name = "FARBE")
     private String color;
+    @Lob
     @Column(name = "BILD")
     private byte[] image;
     @Column(name = "KATEGORIE")

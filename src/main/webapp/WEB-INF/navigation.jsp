@@ -31,8 +31,16 @@
     </div>
     <div class="navbar-collapse collapse dual-nav">
         <ul class="navbar-nav">
-            <a class="navbar-brand" href="${url}/warenkorb">
-                <img src="img/warenkorb.png" width="30", height="30">
+            <c:if test="${not empty user}">
+                <li class="nav-item active" style="padding-right: 20px">
+                    <a class="nav-link" href="${url}/neuerartikel">Neu</a>
+                </li>
+                <li class="nav-item active" style="padding-right: 20px">
+                    <a class="nav-link" href="${url}/posteingang">Posteingang</a>
+                </li>
+            </c:if>
+            <a class="navbar-brand" href="${url}/favoriten">
+                <img src="img/favoriten.png" height="30">
             </a>
         </ul>
     </div>

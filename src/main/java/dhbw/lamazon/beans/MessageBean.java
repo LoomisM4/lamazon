@@ -41,4 +41,16 @@ public class MessageBean {
 
         em.persist(m);
     }
+
+    /**
+     * sucht anhand der übergeben ID nach einer Nachricht und gibt diese zurück
+     *
+     * @param id die ID der zu suchenden Nachricht
+     *
+     * @return ein Message-Objekt, falls eine Nachricht gefunden wurde.
+     * null, falls keine Nachricht gefunden wurde.
+     */
+    public Message findMessageById(long id) {
+        return em.find(Message.class, id);
+    }
 }

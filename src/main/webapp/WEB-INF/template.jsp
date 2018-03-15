@@ -1,3 +1,5 @@
+<%@ page import="dhbw.lamazon.Errors" %>
+<%@ page import="dhbw.lamazon.Messages" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -24,7 +26,12 @@
             <div class="col">
                 <%-- Hier wird eine Nachricht, nach z. B. dem erfolgreichen ausloggen angezeigt --%>
                 <div id="message">
-                    <c:out value="${message}"/>
+                    <c:forEach var="message" items="${messages}">
+                        <div class="row">
+                            <c:out value="${message}"/>
+                        </div>
+                    </c:forEach>
+                    <% Messages.clear(); %>
                 </div>
             </div>
         </div>
@@ -37,6 +44,7 @@
                             <c:out value="${error}"/>
                         </div>
                     </c:forEach>
+                    <% Errors.clear(); %>
                 </div>
             </div>
         </div>
@@ -49,8 +57,10 @@
     </div>
 </main>
 <footer>
-    <%-- Hier kann der Footer eingebunden werden --%>
-    <jsp:include page="footer.jsp"/>
+    <div class="container">
+        <%-- Hier kann der Footer eingebunden werden --%>
+        <jsp:include page="footer.jsp"/>
+    </div>
 </footer>
 </body>
 </html>
