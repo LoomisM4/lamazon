@@ -2,6 +2,7 @@ package dhbw.lamazon.beans;
 
 import dhbw.lamazon.Errors;
 import dhbw.lamazon.entities.User;
+import dhbw.lamazon.enums.UserCommunication;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import javax.ejb.Stateless;
@@ -40,7 +41,7 @@ public class UserBean {
                     .setParameter("passwort", DigestUtils.sha256Hex(password))
                     .getSingleResult();
         } catch (NoResultException e) {
-            Errors.add("E-Mail-Adresse oder Passwort falsch");
+            Errors.add(UserCommunication.LOGIN_FAILED);
         }
         return user;
     }
@@ -88,7 +89,7 @@ public class UserBean {
             return em.merge(u);
         }
         // Falls diese E-Mail-Adresse schon vergeben ist, wird ein Fehler gespeichert
-        Errors.add("Zu jeder E-Mail-Adresse darf nur ein Konto vorhanden sein");
+        Errors.add(UserCommunication.MAIL_ALREADY_AVAILABLE);
         return null;
     }
 

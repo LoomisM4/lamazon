@@ -1,6 +1,7 @@
 package dhbw.lamazon.servlets;
 
 import dhbw.lamazon.Errors;
+import dhbw.lamazon.enums.UserCommunication;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,7 +23,7 @@ public class PosteingangServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Object user = session.getAttribute("user");
         if (user == null) {
-            Errors.add("Sie müssen eingeloggt sein, um diesen Bereich zu betreten");
+            Errors.add(UserCommunication.LOGIN_REQUIRED);
             response.sendRedirect("/anmelden");
         } else {
             new Dispatcher(request, response).navigateTo("posteingang.jsp");

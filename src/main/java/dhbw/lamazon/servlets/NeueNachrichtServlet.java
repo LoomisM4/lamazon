@@ -5,6 +5,7 @@ import dhbw.lamazon.Messages;
 import dhbw.lamazon.beans.MessageBean;
 import dhbw.lamazon.entities.Article;
 import dhbw.lamazon.entities.User;
+import dhbw.lamazon.enums.UserCommunication;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -30,7 +31,7 @@ public class NeueNachrichtServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Object o = session.getAttribute("user");
         if (o == null) {
-            Errors.add("Sie müssen eingeloggt sein, um diesen Bereich zu betreten");
+            Errors.add(UserCommunication.LOGIN_REQUIRED);
             response.sendRedirect("/anmelden");
         } else {
             new Dispatcher(request, response).navigateTo("neueNachricht.jsp");
@@ -46,7 +47,7 @@ public class NeueNachrichtServlet extends HttpServlet {
 
         messageBean.sendNewMessage(user, article.getUser(), message);
 
-        Messages.add("Nachricht wurde versandt");
+        Messages.add(UserCommunication.MESSAGE_SENT);
 
         new Dispatcher(request, response).navigateTo("artikel.jsp");
     }

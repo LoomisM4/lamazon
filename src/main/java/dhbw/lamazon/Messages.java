@@ -1,5 +1,6 @@
 package dhbw.lamazon;
 
+import dhbw.lamazon.enums.UserCommunication;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -14,8 +15,8 @@ public class Messages {
     @Getter
     private static List<String> messages = new ArrayList<>();
 
-    public static void add(String message) {
-        Messages.getMessages().add(message);
+    public static void add(UserCommunication message) {
+        Messages.getMessages().add(message.toString());
     }
 
     public static void clear() {

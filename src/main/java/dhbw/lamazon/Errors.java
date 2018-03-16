@@ -1,5 +1,6 @@
 package dhbw.lamazon;
 
+import dhbw.lamazon.enums.UserCommunication;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -14,8 +15,8 @@ public class Errors {
     @Getter
     private static List<String> errors = new ArrayList<>();
 
-    public static void add(String error) {
-        Errors.getErrors().add(error);
+    public static void add(UserCommunication error) {
+        Errors.getErrors().add(error.toString());
     }
 
     public static void clear() {

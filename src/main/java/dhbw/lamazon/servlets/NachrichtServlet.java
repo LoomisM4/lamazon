@@ -3,6 +3,7 @@ package dhbw.lamazon.servlets;
 import dhbw.lamazon.Errors;
 import dhbw.lamazon.beans.MessageBean;
 import dhbw.lamazon.entities.Message;
+import dhbw.lamazon.enums.UserCommunication;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -28,7 +29,7 @@ public class NachrichtServlet extends HttpServlet {
         HttpSession session = request.getSession();
         // TODO prüfen ob der aktuelle Benutzer die Nachricht überhaupt ansehen darf
         if (session.getAttribute("user") == null) {
-            Errors.add("Sie müssen eingeloggt sein, um diesen Bereich zu betreten");
+            Errors.add(UserCommunication.LOGIN_REQUIRED);
             response.sendRedirect("/anmelden");
         } else {
             String idText = request.getParameter("id");
@@ -36,7 +37,7 @@ public class NachrichtServlet extends HttpServlet {
             try {
                 id = Long.valueOf(idText);
             } catch (NumberFormatException e) {
-                Errors.add("Da ist etwas schiefgelaufen");
+                Errors.add(UserCommunication.ERROR);
             }
             Message message = messageBean.findMessageById(id);
             request.setAttribute("message", message);

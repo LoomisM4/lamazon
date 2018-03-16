@@ -1,5 +1,8 @@
 package dhbw.lamazon.servlets;
 
+import dhbw.lamazon.Messages;
+import dhbw.lamazon.enums.UserCommunication;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,8 +23,8 @@ public class AbmeldenServlet extends HttpServlet {
         HttpSession session = request.getSession();
         // Den User aus der Session löschen
         session.removeAttribute("user");
-        request.setAttribute("message", "Sie wurden erfolgreich ausgeloggt");
+        Messages.add(UserCommunication.LOGOUT_SUCCESSFUL);
 
-        new Dispatcher(request, response).navigateTo("startseite.jsp");
+        response.sendRedirect("/lamazon");
     }
 }

@@ -3,6 +3,7 @@ package dhbw.lamazon.servlets;
 import dhbw.lamazon.Errors;
 import dhbw.lamazon.beans.ArticleBean;
 import dhbw.lamazon.entities.Article;
+import dhbw.lamazon.enums.UserCommunication;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -35,12 +36,12 @@ public class ArtikelServlet extends HttpServlet {
 
             Article article = articleBean.findArticleById(id);
             if (article == null) {
-                Errors.add("Der gesuchte Artikel wurde nicht gefunden");
+                Errors.add(UserCommunication.ARTICLE_NOT_FOUND);
             } else {
                 session.setAttribute("article", article);
             }
         } catch (NumberFormatException e) {
-            Errors.add("Da ist etwas schiefgelaufen");
+            Errors.add(UserCommunication.ERROR);
         }
 
         d.navigateTo("artikel.jsp");

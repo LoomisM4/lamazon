@@ -3,6 +3,7 @@ package dhbw.lamazon.servlets;
 import dhbw.lamazon.Errors;
 import dhbw.lamazon.beans.ArticleBean;
 import dhbw.lamazon.entities.Article;
+import dhbw.lamazon.enums.UserCommunication;
 
 import javax.ejb.EJB;
 import javax.imageio.ImageIO;
@@ -33,7 +34,7 @@ public class ImageServlet extends HttpServlet {
         try {
             id = Long.valueOf(idText);
         } catch (NumberFormatException e) {
-            Errors.add("Das ist etwas schiefgelaufen");
+            Errors.add(UserCommunication.ERROR);
             // TODO irgendwohin weiterleiten
         }
 

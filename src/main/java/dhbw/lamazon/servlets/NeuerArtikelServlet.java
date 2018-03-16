@@ -1,8 +1,10 @@
 package dhbw.lamazon.servlets;
 
 import dhbw.lamazon.Errors;
+import dhbw.lamazon.Messages;
 import dhbw.lamazon.beans.ArticleBean;
 import dhbw.lamazon.entities.User;
+import dhbw.lamazon.enums.UserCommunication;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -37,7 +39,7 @@ public class NeuerArtikelServlet extends HttpServlet {
         Object o = session.getAttribute("user");
 
         if (o == null) {
-            request.setAttribute("errors", new String("Sie müssen eingeloggt sein, um diesen Bereich zu betreten"));
+            Errors.add(UserCommunication.LOGIN_REQUIRED);
             response.sendRedirect("/anmelden");
         } else {
             new Dispatcher(request, response).navigateTo("neuerArtikel.jsp");
@@ -64,12 +66,12 @@ public class NeuerArtikelServlet extends HttpServlet {
         try {
             preis = Double.valueOf(values.get(2));
         } catch (NumberFormatException e) {
-            Errors.add("Geben Sie einen gültigen Preis ein");
+            Errors.add(UserCommunication.PRICE_WRONG);
         }
 
         if (Errors.isEmpty()) {
             articelBean.createNewArticle(values.get(0), values.get(1), preis, user, image, null, null);
-            request.setAttribute("message", new String("Ihr Artikel wurde erfolgreich eingestellt"));
+            Messages.add(UserCommunication.ARTICLE_PUBLISHED);
             response.sendRedirect("/startseite");
         }
         new Dispatcher(request, response).navigateTo("neuerArtikel.jsp");

@@ -3,6 +3,7 @@ package dhbw.lamazon.servlets;
 import dhbw.lamazon.Errors;
 import dhbw.lamazon.beans.UserBean;
 import dhbw.lamazon.entities.User;
+import dhbw.lamazon.enums.UserCommunication;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -38,7 +39,7 @@ public class AnmeldenServlet extends HttpServlet {
 
         if (email.length() == 0 ||
                 password.length() == 0) {
-            Errors.add("Bitte füllen Sie alle Felder aus");
+            Errors.add(UserCommunication.MISSING_FIELDS);
         } else {
             User user = userBean.login(email, password);
 

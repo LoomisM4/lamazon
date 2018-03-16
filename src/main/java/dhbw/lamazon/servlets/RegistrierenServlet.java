@@ -4,6 +4,7 @@ import dhbw.lamazon.Errors;
 import dhbw.lamazon.Messages;
 import dhbw.lamazon.beans.UserBean;
 import dhbw.lamazon.entities.User;
+import dhbw.lamazon.enums.UserCommunication;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -58,22 +59,22 @@ public class RegistrierenServlet extends HttpServlet {
                 hausnummer.length() == 0 ||
                 plzString.length() == 0 ||
                 ort.length() == 0) {
-            Errors.add("Bitte füllen Sie alle Felder aus");
+            Errors.add(UserCommunication.MISSING_FIELDS);
         }
 
         if (!passwort1.equals(passwort2)) {
-            Errors.add("Die beiden Passwörter müssen übereinstimmen");
+            Errors.add(UserCommunication.PASSWORDS_DIFFERENT);
         }
 
         if (agb == null) {
-            Errors.add("Bitte akzeptieren sie die AGB");
+            Errors.add(UserCommunication.AGB_UNCHECKED);
         }
 
         long plz = 0;
         try {
             plz = Long.valueOf(plzString);
         } catch (NumberFormatException e) {
-            Errors.add("Geben Sie eine korrekte Postleitzahl an");
+            Errors.add(UserCommunication.WRONG_ZIP_CODE);
         }
 
         Dispatcher d = new Dispatcher(request, response);
@@ -88,7 +89,7 @@ public class RegistrierenServlet extends HttpServlet {
             if (user != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("user", user);
-                Messages.add("Ihr Konto wurde erfolgreich angelegt");
+                Messages.add(UserCommunication.ACCOUNT_CREATED);
                 d.navigateTo("startseite.jsp");
             } else {
                 d.navigateTo("registrieren.jsp");

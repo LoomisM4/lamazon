@@ -6,6 +6,7 @@ import dhbw.lamazon.beans.ArticleBean;
 import dhbw.lamazon.beans.UserBean;
 import dhbw.lamazon.entities.Article;
 import dhbw.lamazon.entities.User;
+import dhbw.lamazon.enums.UserCommunication;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -37,7 +38,7 @@ public class MeinKontoServlet extends HttpServlet {
 
         // falls kein User eingeloggt ist, wird automatisch die Seite zum Einloggen angezeigt
         if (user == null) {
-            Errors.add("Sie müssen eingeloggt sein, um diesen Bereich zu betreten");
+            Errors.add(UserCommunication.LOGIN_REQUIRED);
             response.sendRedirect("/anmelden");
         } else {
             // alle vom Nutzer eingestellten Artikel werden eingelesen und im Request gespeichert
@@ -72,19 +73,19 @@ public class MeinKontoServlet extends HttpServlet {
                 benutzername.length() == 0 ||
                 email.length() == 0 ||
                 passwort.length() == 0) {
-            Errors.add("Bitte füllen Sie alle Felder aus, wenn Sie Daten ändern wollen");
+            Errors.add(UserCommunication.MISSING_FIELDS);
         }
 
         long plz = 0;
         try {
             plz = Long.valueOf(plzString);
         } catch (NumberFormatException e) {
-            Errors.add("Geben Sie eine gültige PLZ an");
+            Errors.add(UserCommunication.WRONG_ZIP_CODE);
         }
 
         if (Errors.isEmpty()) {
             userBean.changeData(user, benutzername, email, passwort, vorname, nachname, strasse, hausnr, plz, ort);
-            Messages.add("Ihre Daten wurden erfolgreich geändert");
+            Messages.add(UserCommunication.CHANGES_SUCCESSFUL);
         }
 
         new Dispatcher(request, response).navigateTo("meinKonto.jsp");
