@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * @author Marcel Wettach
@@ -29,19 +32,24 @@ public class ImageServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("image/png");
 
+        List<Article> articles = (List<Article>) request.getSession().getAttribute("articles");
+
         String idText = request.getParameter("articleId");
         long id = 0;
         try {
             id = Long.valueOf(idText);
         } catch (NumberFormatException e) {
             Errors.add(UserCommunication.ERROR);
-            // TODO irgendwohin weiterleiten
+            response.sendRedirect("/lamazon");
         }
 
-        Article article = articleBean.findArticleById(id);
-        BufferedImage image = article.getImage();
+        long finalId = id;
+        Optional<Article> article = articles.stream().filter(a -> a.getId() == finalId).findFirst();
 
-        if (image != null)
-            ImageIO.write(image, "png", response.getOutputStream());
+        AtomicReference<BufferedImage> image = new AtomicReference<>();
+        article.ifPresent(a -> image.set(a.getImage()));
+
+        if (image.get() != null)
+            ImageIO.write(image.get(), "png", response.getOutputStream());
     }
 }
