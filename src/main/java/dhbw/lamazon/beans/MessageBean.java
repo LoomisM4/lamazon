@@ -28,7 +28,7 @@ public class MessageBean {
      * @param receiver User-Objekt des Empfängers
      * @param message der Inhalt der Nachricht
      */
-    public void sendNewMessage(User sender, User receiver, String message) {
+    public synchronized void sendNewMessage(User sender, User receiver, String message) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String date = sdf.format(new Date());
 
@@ -50,7 +50,7 @@ public class MessageBean {
      * @return ein Message-Objekt, falls eine Nachricht gefunden wurde.
      * null, falls keine Nachricht gefunden wurde.
      */
-    public Message findMessageById(long id) {
+    public synchronized Message findMessageById(long id) {
         return em.find(Message.class, id);
     }
 }

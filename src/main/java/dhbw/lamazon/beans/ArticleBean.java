@@ -25,7 +25,7 @@ public class ArticleBean {
      *
      * @return eine Liste mit Artikeln
      */
-    public List<Article> getAllArticles() {
+    public synchronized List<Article> getAllArticles() {
         return em.createQuery("SELECT a FROM Article a").getResultList();
     }
 
@@ -36,7 +36,7 @@ public class ArticleBean {
      *
      * @return eine Liste mit gefundenen Artikeln
      */
-    public List<Article> findArticleByTitle(String title) {
+    public synchronized List<Article> findArticleByTitle(String title) {
         return em.createQuery("SELECT a FROM Article a WHERE a.title LIKE :title")
                 .setParameter("title", "%" + title + "%")
                 .getResultList();
@@ -49,7 +49,7 @@ public class ArticleBean {
      *
      * @return ein Artikel-Objekt, falls ein passender Artikel gefunden wurde
      */
-    public Article findArticleById(long id) {
+    public synchronized Article findArticleById(long id) {
         return em.find(Article.class, id);
     }
 
@@ -60,7 +60,7 @@ public class ArticleBean {
      *
      * @return eine Liste mit von dem Benutzer eingestellten Artikeln
      */
-    public List<Article> findArticlesByUser(User user) {
+    public synchronized List<Article> findArticlesByUser(User user) {
         return em.createQuery("SELECT a FROM Article a WHERE a.user = :user")
                 .setParameter("user", user)
                 .getResultList();
@@ -74,7 +74,7 @@ public class ArticleBean {
      * @param price der gewünschte Preis des Artikels
      * @param user das User-Objekt des Benutzers, der den Artikel erstellen möchte
      */
-    public void createNewArticle(String title, String descirption, double price, User user, byte[] image, String color, Category category) {
+    public synchronized void createNewArticle(String title, String descirption, double price, User user, byte[] image, String color, Category category) {
         Article article = new Article();
         article.setTitle(title);
         article.setDescription(descirption);

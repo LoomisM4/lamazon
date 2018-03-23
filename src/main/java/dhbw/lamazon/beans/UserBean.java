@@ -33,7 +33,7 @@ public class UserBean {
      * wird null zurückgegeben. In diesem Fall können Fehler über die Methode getErrors()
      * ermittelt werden.
      */
-    public User login(String email, String password) {
+    public synchronized User login(String email, String password) {
         User user = null;
         try {
             user = (User) em.createQuery("SELECT u FROM User u WHERE u.email = :email AND u.passwort = :passwort")
@@ -65,7 +65,7 @@ public class UserBean {
      * Dieses muss anschließend noch in der Session gespeichert werden.
      * Falls Fehler aufgetreten sind, können diese mit der Methode getErrors() ermittelt werden.
      */
-    public User register(String username, String email, String password, String vorname, String nachname, String strasse, String hausnr, long plz, String ort) {
+    public synchronized User register(String username, String email, String password, String vorname, String nachname, String strasse, String hausnr, long plz, String ort) {
         User u = new User();
         // Passwort hashen
         // User speichern
@@ -109,7 +109,7 @@ public class UserBean {
      *
      * @return das neue, veränderte User-Objekt
      */
-    public User changeData(User user, String newUsername, String newEmail, String newPassword, String newVorname, String newNachname, String newStrasse, String newHausnr, long newPlz, String newOrt) {
+    public synchronized User changeData(User user, String newUsername, String newEmail, String newPassword, String newVorname, String newNachname, String newStrasse, String newHausnr, long newPlz, String newOrt) {
         user.setBenutzername(newUsername);
         user.setEmail(newEmail);
         user.setPasswort(DigestUtils.sha256Hex(newPassword));
