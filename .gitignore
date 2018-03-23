@@ -11,6 +11,9 @@
 .classpath
 .project
 
+# Maven
+target/
+
 
 # Compiled class file
 *.class
