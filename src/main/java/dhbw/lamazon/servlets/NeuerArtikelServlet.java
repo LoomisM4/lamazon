@@ -55,7 +55,12 @@ public class NeuerArtikelServlet extends HttpServlet {
             if (item.isFormField()) {
                 values.add(item.getString());
             } else {
-                image = item.get();
+                long size = item.getSize();
+                if (size <= 4096000) {
+                    image = item.get();
+                } else {
+                    Errors.add(UserCommunication.IMAGE_TOO_BIG);
+                }
             }
         }
 
@@ -73,8 +78,9 @@ public class NeuerArtikelServlet extends HttpServlet {
             articelBean.createNewArticle(values.get(0), values.get(1), preis, user, image, null, null);
             Messages.add(UserCommunication.ARTICLE_PUBLISHED);
             response.sendRedirect("/startseite");
+        } else {
+            response.sendRedirect("/neuerartikel");
         }
-        new Dispatcher(request, response).navigateTo("neuerArtikel.jsp");
     }
 
     private List<FileItem> ProcessRequest(HttpServletRequest request) {

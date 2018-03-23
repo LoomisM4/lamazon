@@ -12,8 +12,8 @@
                 <div class="carousel-inner" style="height: 50%">
                     <div class="carousel-item active">
                         <a href="${url}/artikel?id=${articles.get(articles.size() - 1).getId()}">
-                            <img class="d-block w-100" src="img/1.jpg" alt="Bild" style="width: 100%; height: 100%">
-                            <div class="carousel-caption d-none d-md-block">
+                            <img class="d-block w-100" src="${url}/image?articleId=${articles.get(articles.size() - 1).getId()}" alt="Bild" style="width: 100%; height: 100%">
+                            <div class="carousel-caption d-none d-md-block" style="background-color: rgba(0, 83, 166, 0.5); padding: 5px; border-radius: 30px;">
                                 <h5>${articles.get(articles.size() - 1).getTitle()}</h5>
                                 <p>${articles.get(articles.size() - 1).getShortDescription()}</p>
                             </div>
@@ -21,17 +21,17 @@
                     </div>
                     <div class="carousel-item">
                         <a href="${url}/artikel?id=${articles.get(articles.size() - 2).getId()}">
-                            <img class="d-block w-100" src="img/2.jpg" alt="Bild" style="width: 100%; height: 100%">
-                            <div class="carousel-caption d-none d-md-block">
+                            <img class="d-block w-100" src="${url}/image?articleId=${articles.get(articles.size() - 2).getId()}" alt="Bild" style="width: 100%; height: 100%">
+                            <div class="carousel-caption d-none d-md-block" style="background-color: rgba(0, 83, 166, 0.5); padding: 5px; border-radius: 30px;">
                                 <h5>${articles.get(articles.size() - 2).getTitle()}</h5>
                                 <p>${articles.get(articles.size() - 2).getShortDescription()}</p>
                             </div>
                         </a>
                     </div>
-                    <div class="carousel-item">
+                    <div class="carousel-item" style="min-width: 100%">
                         <a href="${url}/artikel?id=${articles.get(articles.size() - 3).getId()}">
-                            <img class="d-block w-100" src="img/3.jpg" alt="Bild" style="width: 100%; height: 100%">
-                            <div class="carousel-caption d-none d-md-block">
+                            <img class="d-block w-100" src="${url}/image?articleId=${articles.get(articles.size() - 3).getId()}" alt="Bild" style="width: 100%; height: 100%">
+                            <div class="carousel-caption d-none d-md-block" style="background-color: rgba(0, 83, 166, 0.5); padding: 5px; border-radius: 30px;">
                                 <h5>${articles.get(articles.size() - 3).getTitle()}</h5>
                                 <p>${articles.get(articles.size() - 3).getShortDescription()}</p>
                             </div>

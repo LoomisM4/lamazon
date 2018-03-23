@@ -18,7 +18,8 @@ public enum UserCommunication {
     AGB_UNCHECKED,
     ACCOUNT_CREATED,
     LOGIN_FAILED,
-    PRICE_WRONG;
+    PRICE_WRONG,
+    IMAGE_TOO_BIG;
 
     public String toString() {
         switch (this) {
@@ -50,6 +51,8 @@ public enum UserCommunication {
                 return "E-Mail-Adresse oder Passwort falsch";
             case PRICE_WRONG:
                 return "Geben Sie einen gültigen Preis ein";
+            case IMAGE_TOO_BIG:
+                return "Das Artikelbild darf maximal 4 MB groß sein";
             default:
                 return "Das ist etwas schief gelaufen";
         }

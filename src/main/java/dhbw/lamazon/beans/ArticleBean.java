@@ -18,7 +18,7 @@ import java.util.List;
 @SuppressWarnings("unchecked")
 public class ArticleBean {
     @PersistenceContext
-    EntityManager em;
+    private EntityManager em;
 
     /**
      * Diese Methode liefert alle in der Datenbank vorhandenen Artikel

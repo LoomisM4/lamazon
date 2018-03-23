@@ -17,8 +17,9 @@ import java.util.List;
  * @author Marcel Wettach
  */
 @WebServlet(urlPatterns = {
-            "/lamazon"
-        })
+        "/lamazon",
+        "/startseite"
+})
 public class StartseiteServlet extends HttpServlet {
     @EJB
     private ArticleBean articleBean;

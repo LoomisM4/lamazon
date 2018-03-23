@@ -7,16 +7,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * beinhaltet statische Methoden, mit denen eine Liste vom Typ String befüllt oder geleert werden kann.
+ * beinhaltet statische Methoden, mit denen eine Liste vom Benachrichtigungen befüllt oder geleert werden kann.
  *
  * @author Marcel Wettach
  */
 public class Messages {
     @Getter
-    private static List<String> messages = new ArrayList<>();
+    private static List<UserCommunication> messages = new ArrayList<>();
 
     public static void add(UserCommunication message) {
-        Messages.getMessages().add(message.toString());
+        Messages.getMessages().add(message);
     }
 
     public static void clear() {
