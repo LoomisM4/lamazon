@@ -2,6 +2,7 @@ package dhbw.lamazon.servlets;
 
 import dhbw.lamazon.beans.ArticleBean;
 import dhbw.lamazon.entities.Article;
+import dhbw.lamazon.enums.Category;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -28,8 +29,9 @@ public class StartseiteServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
 
-        List<Article> articles = articleBean.getAllArticles();
+        List<Article> articles = articleBean.findAllArticles();
         session.setAttribute("articles", articles);
+        session.setAttribute("categories", Category.values());
 
         new Dispatcher(request, response).navigateTo("startseite.jsp");
     }

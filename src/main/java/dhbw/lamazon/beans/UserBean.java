@@ -122,4 +122,8 @@ public class UserBean {
 
         return em.merge(user);
     }
+
+    public synchronized User update(User user) {
+        return em.merge(user);
+    }
 }

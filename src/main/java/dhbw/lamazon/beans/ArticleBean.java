@@ -25,7 +25,7 @@ public class ArticleBean {
      *
      * @return eine Liste mit Artikeln
      */
-    public synchronized List<Article> getAllArticles() {
+    public synchronized List<Article> findAllArticles() {
         return em.createQuery("SELECT a FROM Article a").getResultList();
     }
 
@@ -74,16 +74,44 @@ public class ArticleBean {
      * @param price der gewünschte Preis des Artikels
      * @param user das User-Objekt des Benutzers, der den Artikel erstellen möchte
      */
-    public synchronized void createNewArticle(String title, String descirption, double price, User user, byte[] image, String color, Category category) {
+    public synchronized void createNewArticle(String title, String descirption, double price, User user, byte[] image, Category category) {
         Article article = new Article();
         article.setTitle(title);
         article.setDescription(descirption);
         article.setPrice(price);
         article.setUser(user);
         article.setImage(image);
-        article.setColor(color);
         article.setCategory(category);
 
         em.persist(article);
+    }
+
+    /**
+     * Diese Methode sucht in der Datenbank nach allen Artikeln, die eine bestimmter Kategorie zugeordnet sind.
+     *
+     * @param category die Kategorie nach der gesucht werden soll
+     *
+     * @return eine Liste mit gefundenen Artikeln
+     */
+    public List<Article> findByCategory(Category category) {
+        return em.createQuery("SELECT a FROM Article a WHERE a.category = :category")
+                .setParameter("category", category)
+                .getResultList();
+    }
+
+    /**
+     * Diese Methode sucht in der Datenbank nach Artikeln mit einem bestimmten Titeln,
+     * die einer bestimmten Kategorie zugeordnet sind.
+     *
+     * @param title der Titel nach dem gesucht werden soll
+     * @param category die Kategorie nach der gesucht werden soll
+     *
+     * @return eine Liste mit gefundenen Artikeln
+     */
+    public List<Article> findByTitleAndCategory(String title, Category category) {
+        return em.createQuery("SELECT a FROM Article a WHERE a.title LIKE :title AND a.category = :category")
+                .setParameter("title", title)
+                .setParameter("category", category)
+                .getResultList();
     }
 }

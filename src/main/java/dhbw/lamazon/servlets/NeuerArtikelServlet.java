@@ -4,6 +4,7 @@ import dhbw.lamazon.Errors;
 import dhbw.lamazon.Messages;
 import dhbw.lamazon.beans.ArticleBean;
 import dhbw.lamazon.entities.User;
+import dhbw.lamazon.enums.Category;
 import dhbw.lamazon.enums.UserCommunication;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -69,13 +70,13 @@ public class NeuerArtikelServlet extends HttpServlet {
 
         double preis = 0;
         try {
-            preis = Double.valueOf(values.get(2));
+            preis = Double.valueOf(values.get(3));
         } catch (NumberFormatException e) {
             Errors.add(UserCommunication.PRICE_WRONG);
         }
 
         if (Errors.isEmpty()) {
-            articelBean.createNewArticle(values.get(0), values.get(1), preis, user, image, null, null);
+            articelBean.createNewArticle(values.get(0), values.get(1), preis, user, image, Category.getCategory(values.get(2)));
             Messages.add(UserCommunication.ARTICLE_PUBLISHED);
             response.sendRedirect("/startseite");
         } else {

@@ -41,11 +41,10 @@ public class Article {
     @NotNull
     @Column(name = "PREIS")
     private double price;
-    @Column(name = "FARBE")
-    private String color;
     @Lob
     @Column(name = "BILD")
     private byte[] image;
+    @Enumerated(EnumType.STRING)
     @Column(name = "KATEGORIE")
     private Category category;
 
@@ -59,6 +58,10 @@ public class Article {
             return this.description.substring(0, 150) + "...";
         }
         return this.description;
+    }
+
+    public void setCategory(Category c) {
+        this.category = c;
     }
 
     public BufferedImage getImage() {
