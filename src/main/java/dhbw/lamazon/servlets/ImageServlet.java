@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
@@ -51,5 +52,9 @@ public class ImageServlet extends HttpServlet {
 
         if (image.get() != null)
             ImageIO.write(image.get(), "png", response.getOutputStream());
+        else {
+            BufferedImage img = ImageIO.read(new URL(Dispatcher.baseUrl.replace("lamazon", "img/Standardbild.jpg")));
+            ImageIO.write(img, "png", response.getOutputStream());
+        }
     }
 }
