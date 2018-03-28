@@ -21,46 +21,42 @@
     <jsp:include page="toolbar.jsp"/>
 </header>
 <main style="margin-bottom: 80px; margin-left: 20px; margin-right: 20px">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <%-- Hier wird eine Nachricht, nach z. B. dem erfolgreichen ausloggen angezeigt --%>
-                <div id="message">
-                    <c:forEach var="message" items="${messages}">
-                        <div class="row">
-                            <c:out value="${message}"/>
-                        </div>
-                    </c:forEach>
-                    <% Messages.clear(); %>
-                </div>
+    <div class="row">
+        <div class="col">
+            <%-- Hier wird eine Nachricht, nach z. B. dem erfolgreichen ausloggen angezeigt --%>
+            <div id="message">
+                <c:forEach var="message" items="${messages}">
+                    <div class="row">
+                        <c:out value="${message}"/>
+                    </div>
+                </c:forEach>
+                <% Messages.clear(); %>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <%-- Hier werden evtl. vorhandene Fehler angezeigt --%>
-                <div id="error">
-                    <c:forEach var="error" items="${errors}">
-                        <div class="row">
-                            <c:out value="${error}"/>
-                        </div>
-                    </c:forEach>
-                    <% Errors.clear(); %>
-                </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <%-- Hier werden evtl. vorhandene Fehler angezeigt --%>
+            <div id="error">
+                <c:forEach var="error" items="${errors}">
+                    <div class="row">
+                        <c:out value="${error}"/>
+                    </div>
+                </c:forEach>
+                <% Errors.clear(); %>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <%-- Einbindung der jeweils benötigen JSP (steht in "body" der Session) --%>
-                <jsp:include page="${body}"/>
-            </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <%-- Einbindung der jeweils benötigen JSP (steht in "body" der Session) --%>
+            <jsp:include page="${body}"/>
         </div>
     </div>
 </main>
 <footer>
-    <div class="container">
-        <%-- Hier kann der Footer eingebunden werden --%>
-        <jsp:include page="footer.jsp"/>
-    </div>
+    <%-- Hier kann der Footer eingebunden werden --%>
+    <jsp:include page="footer.jsp"/>
 </footer>
 </body>
 </html>
