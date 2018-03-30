@@ -1,6 +1,7 @@
 package dhbw.lamazon.servlets;
 
 import dhbw.lamazon.Errors;
+import dhbw.lamazon.Messages;
 import dhbw.lamazon.beans.UserBean;
 import dhbw.lamazon.entities.User;
 import dhbw.lamazon.enums.UserCommunication;
@@ -45,12 +46,13 @@ public class AnmeldenServlet extends HttpServlet {
 
             if (user != null) {
                 session.setAttribute("user", user);
-                d.navigateTo("startseite.jsp");
+                Messages.add(UserCommunication.LOGIN_SUCCESFUL);
+                response.sendRedirect("/lamazon");
             }
         }
 
         if (!Errors.isEmpty()) {
-            d.navigateTo("anmelden.jsp");
+            response.sendRedirect("/anmelden");
         }
     }
 }

@@ -24,4 +24,9 @@
             <button type="button" class="btn btn-primary">Nachricht an Verk&#228;ufer</button>
         </a>
     </div>
+    <div>
+        <a href="${url}/zufavoriten?artikel=${article.getId()}">
+            <button type="button" class="btn btn-primary">Merken</button>
+        </a>
+    </div>
 </div>

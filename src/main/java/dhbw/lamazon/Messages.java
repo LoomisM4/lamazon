@@ -22,4 +22,8 @@ public class Messages {
     public static void clear() {
         Messages.getMessages().clear();
     }
+
+    public static boolean isEmpty() {
+        return Errors.getErrors().isEmpty();
+    }
 }

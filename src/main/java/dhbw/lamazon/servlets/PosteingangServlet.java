@@ -1,8 +1,10 @@
 package dhbw.lamazon.servlets;
 
 import dhbw.lamazon.Errors;
+import dhbw.lamazon.beans.UserBean;
 import dhbw.lamazon.enums.UserCommunication;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,6 +20,9 @@ import java.io.IOException;
         "/posteingang"
 })
 public class PosteingangServlet extends HttpServlet {
+    @EJB
+    UserBean userBean;
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();

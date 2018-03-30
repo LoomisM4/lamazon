@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -29,7 +30,7 @@ public class Article {
     @Column(name = "ARTIKELNUMMER")
     private long id = 0;
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "VERKAEUFER")
     private User user;
     @NotNull
@@ -47,6 +48,8 @@ public class Article {
     @Enumerated(EnumType.STRING)
     @Column(name = "KATEGORIE")
     private Category category;
+    @OneToMany(mappedBy = "article", fetch = FetchType.EAGER)
+    private List<Favorite> favoriteOf;
 
     /**
      * liefer die Beschreibung des Artikels in kurzform, falls diese mehr als 150 Zeichen enthält

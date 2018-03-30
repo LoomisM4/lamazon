@@ -1,9 +1,8 @@
 package dhbw.lamazon.servlets;
 
 import dhbw.lamazon.Errors;
-import dhbw.lamazon.Messages;
+import dhbw.lamazon.beans.ArticleBean;
 import dhbw.lamazon.beans.UserBean;
-import dhbw.lamazon.entities.Article;
 import dhbw.lamazon.entities.User;
 import dhbw.lamazon.enums.UserCommunication;
 
@@ -20,35 +19,37 @@ import java.io.IOException;
  * @author Marcel Wettach
  */
 @WebServlet(urlPatterns = {
-        "/neuenachricht"
+        "/zufavoriten"
 })
-public class NeueNachrichtServlet extends HttpServlet {
+public class HinzufuegenZuFavoriten extends HttpServlet {
     @EJB
-    UserBean userBean;
+    private ArticleBean articleBean;
+    @EJB
+    private UserBean userBean;
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String artikelString = request.getParameter("artikel");
         HttpSession session = request.getSession();
         Object o = session.getAttribute("user");
+
         if (o == null) {
             Errors.add(UserCommunication.LOGIN_REQUIRED);
             response.sendRedirect("/anmelden");
         } else {
-            new Dispatcher(request, response).navigateTo("neueNachricht.jsp");
+            User user = (User) o;
+            long articleId = 0;
+
+            try {
+                articleId = Long.valueOf(artikelString);
+            } catch (NumberFormatException e) {
+                Errors.add(UserCommunication.ERROR);
+            }
+
+            userBean.addToFavorites(user, articleBean.findArticleById(articleId));
+
+            response.sendRedirect("/favoriten");
         }
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String message = request.getParameter("nachricht");
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-        Article article = (Article) session.getAttribute("article");
-
-        userBean.sendNewMessage(user, article.getUser(), message);
-
-        Messages.add(UserCommunication.MESSAGE_SENT);
-
-        response.sendRedirect("/artikel?id=" + article.getId());
     }
 }

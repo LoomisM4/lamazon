@@ -19,7 +19,9 @@ public enum UserCommunication {
     ACCOUNT_CREATED,
     LOGIN_FAILED,
     PRICE_WRONG,
-    IMAGE_TOO_BIG;
+    IMAGE_TOO_BIG,
+    ARTIKEL_BEREITS_FAVORIT,
+    LOGIN_SUCCESFUL;
 
     public String toString() {
         switch (this) {
@@ -53,6 +55,10 @@ public enum UserCommunication {
                 return "Geben Sie einen gültigen Preis ein";
             case IMAGE_TOO_BIG:
                 return "Das Artikelbild darf maximal 4 MB groß sein";
+            case ARTIKEL_BEREITS_FAVORIT:
+                return "Der ausgewählte Artikel wurde bereits zu den Favoriten hinzugefügt";
+            case LOGIN_SUCCESFUL:
+                return "Sie wurden erfolgreich eingeloggt";
             default:
                 return "Das ist etwas schief gelaufen";
         }

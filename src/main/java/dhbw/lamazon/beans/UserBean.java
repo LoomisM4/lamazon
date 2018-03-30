@@ -1,6 +1,9 @@
 package dhbw.lamazon.beans;
 
 import dhbw.lamazon.Errors;
+import dhbw.lamazon.entities.Article;
+import dhbw.lamazon.entities.Favorite;
+import dhbw.lamazon.entities.Message;
 import dhbw.lamazon.entities.User;
 import dhbw.lamazon.enums.UserCommunication;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -9,6 +12,9 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * liefert die Fachlogik für User-Objekte
@@ -123,7 +129,50 @@ public class UserBean {
         return em.merge(user);
     }
 
-    public synchronized User update(User user) {
-        return em.merge(user);
+    /**
+     * erstellt eine neue Nachricht und versendet diese im Anschluss,
+     * indem sie mit allen nötigen Verknüpfungen in der Datenbank gespeichert wird.
+     *
+     * @param sender User-Objekt des Absenders
+     * @param receiver User-Objekt des Empfängers
+     * @param message der Inhalt der Nachricht
+     */
+    public synchronized void sendNewMessage(User sender, User receiver, String message) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String date = sdf.format(new Date());
+
+        Message m = new Message();
+
+        m.setSender(sender);
+        m.setReceiver(receiver);
+        m.setMessage(message);
+        m.setDate(Timestamp.valueOf(date));
+
+        sender.getSendMessages().add(m);
+        receiver.getReceivedMessages().add(m);
+
+        em.merge(sender);
+        em.merge(receiver);
+    }
+
+    /**
+     * Fügt einen Artikel zu den Favoriten eines Benutzers hinzu.
+     *
+     * @param user der Benutzer, zu dessen Favoritenliste ein Artikel hinzugefügt werden soll
+     * @param article der Artikel, der der Liste hinzugefügt werden soll
+     */
+    public synchronized void addToFavorites(User user, Article article) {
+        if (user != null && article != null) {
+            Favorite f = new Favorite();
+            f.setUser(user);
+            f.setArticle(article);
+
+            if (user.getFavorites().contains(f)) {
+                Errors.add(UserCommunication.ARTIKEL_BEREITS_FAVORIT);
+            } else {
+                user.getFavorites().add(f);
+                em.merge(user);
+            }
+        }
     }
 }

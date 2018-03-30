@@ -1,6 +1,7 @@
 package dhbw.lamazon.servlets;
 
 import dhbw.lamazon.Errors;
+import dhbw.lamazon.Messages;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -49,6 +50,7 @@ class Dispatcher {
             session.setAttribute("url", Dispatcher.baseUrl);
         }
         this.request.setAttribute("errors", Errors.getErrors());
+        this.request.setAttribute("messages", Messages.getMessages());
         this.request.setAttribute("body", targetJsp);
 
         this.request.getRequestDispatcher("/WEB-INF/template.jsp").forward(this.request, this.response);

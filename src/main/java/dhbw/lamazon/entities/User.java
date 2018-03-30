@@ -51,12 +51,14 @@ public class User {
     @NotNull
     @Column(name = "ORT")
     private String ort;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Article> articles;
-    @OneToMany(mappedBy = "receiver")
+    @OneToMany(mappedBy = "receiver", fetch = FetchType.EAGER)
     private List<Message> receivedMessages;
-    @OneToMany(mappedBy = "sender")
+    @OneToMany(mappedBy = "sender", fetch = FetchType.EAGER)
     private List<Message> sendMessages;
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private List<Favorite> favorites;
 
     public String toString() {
         return this.vorname + " " + this.nachname;
