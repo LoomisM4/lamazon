@@ -61,4 +61,12 @@ public enum Category {
                 return "Anderes";
         }
     }
+
+    public static boolean contains(Category category) {
+        for (Category c : Category.values()) {
+            if (c.equals(category))
+                return true;
+        }
+        return false;
+    }
 }

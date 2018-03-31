@@ -8,7 +8,7 @@ import dhbw.lamazon.entities.User;
 import dhbw.lamazon.enums.UserCommunication;
 import org.apache.commons.codec.digest.DigestUtils;
 
-import javax.ejb.Stateless;
+import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -21,7 +21,7 @@ import java.util.Date;
  *
  * @author Marcel Wettach
  */
-@Stateless
+@Singleton
 public class UserBean {
     @PersistenceContext
     EntityManager em;

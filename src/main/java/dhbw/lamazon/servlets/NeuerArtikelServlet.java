@@ -2,6 +2,7 @@ package dhbw.lamazon.servlets;
 
 import dhbw.lamazon.Errors;
 import dhbw.lamazon.Messages;
+import dhbw.lamazon.SecurityCheck;
 import dhbw.lamazon.beans.ArticleBean;
 import dhbw.lamazon.entities.User;
 import dhbw.lamazon.enums.Category;
@@ -36,13 +37,7 @@ public class NeuerArtikelServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Object o = session.getAttribute("user");
-
-        if (o == null) {
-            Errors.add(UserCommunication.LOGIN_REQUIRED);
-            response.sendRedirect("/anmelden");
-        } else {
+        if (SecurityCheck.isUserLoggedIn(request, response)) {
             new Dispatcher(request, response).navigateTo("neuerArtikel.jsp");
         }
     }

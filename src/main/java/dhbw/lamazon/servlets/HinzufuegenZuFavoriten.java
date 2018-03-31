@@ -1,6 +1,7 @@
 package dhbw.lamazon.servlets;
 
 import dhbw.lamazon.Errors;
+import dhbw.lamazon.SecurityCheck;
 import dhbw.lamazon.beans.ArticleBean;
 import dhbw.lamazon.beans.UserBean;
 import dhbw.lamazon.entities.User;
@@ -34,10 +35,7 @@ public class HinzufuegenZuFavoriten extends HttpServlet {
         HttpSession session = request.getSession();
         Object o = session.getAttribute("user");
 
-        if (o == null) {
-            Errors.add(UserCommunication.LOGIN_REQUIRED);
-            response.sendRedirect("/anmelden");
-        } else {
+        if (SecurityCheck.isUserLoggedIn(request, response)) {
             User user = (User) o;
             long articleId = 0;
 

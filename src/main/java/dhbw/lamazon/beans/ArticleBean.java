@@ -1,8 +1,10 @@
 package dhbw.lamazon.beans;
 
+import dhbw.lamazon.Errors;
 import dhbw.lamazon.entities.Article;
 import dhbw.lamazon.entities.User;
 import dhbw.lamazon.enums.Category;
+import dhbw.lamazon.enums.UserCommunication;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -94,9 +96,14 @@ public class ArticleBean {
      * @return eine Liste mit gefundenen Artikeln
      */
     public List<Article> findByCategory(Category category) {
-        return em.createQuery("SELECT a FROM Article a WHERE a.category = :category")
-                .setParameter("category", category)
-                .getResultList();
+        if (Category.contains(category)) {
+            return em.createQuery("SELECT a FROM Article a WHERE a.category = :category")
+                    .setParameter("category", category)
+                    .getResultList();
+        }
+
+        Errors.add(UserCommunication.ERROR);
+        return null;
     }
 
     /**
@@ -109,9 +116,13 @@ public class ArticleBean {
      * @return eine Liste mit gefundenen Artikeln
      */
     public List<Article> findByTitleAndCategory(String title, Category category) {
-        return em.createQuery("SELECT a FROM Article a WHERE a.title LIKE :title AND a.category = :category")
-                .setParameter("title", title)
-                .setParameter("category", category)
-                .getResultList();
+        if (Category.contains(category)) {
+            return em.createQuery("SELECT a FROM Article a WHERE a.title LIKE :title AND a.category = :category")
+                    .setParameter("title", title)
+                    .setParameter("category", category)
+                    .getResultList();
+        }
+        Errors.add(UserCommunication.ERROR);
+        return null;
     }
 }

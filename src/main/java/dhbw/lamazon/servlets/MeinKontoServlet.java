@@ -2,6 +2,7 @@ package dhbw.lamazon.servlets;
 
 import dhbw.lamazon.Errors;
 import dhbw.lamazon.Messages;
+import dhbw.lamazon.SecurityCheck;
 import dhbw.lamazon.beans.ArticleBean;
 import dhbw.lamazon.beans.UserBean;
 import dhbw.lamazon.entities.Article;
@@ -34,15 +35,11 @@ public class MeinKontoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
 
-        User user = (User) session.getAttribute("user");
+        Object o = session.getAttribute("user");
 
-        // falls kein User eingeloggt ist, wird automatisch die Seite zum Einloggen angezeigt
-        if (user == null) {
-            Errors.add(UserCommunication.LOGIN_REQUIRED);
-            response.sendRedirect("/anmelden");
-        } else {
+        if (SecurityCheck.isUserLoggedIn(request, response)) {
             // alle vom Nutzer eingestellten Artikel werden eingelesen und im Request gespeichert
-            List<Article> articles = articleBean.findArticlesByUser(user);
+            List<Article> articles = articleBean.findArticlesByUser((User) o);
             request.setAttribute("articles", articles);
 
             new Dispatcher(request, response).navigateTo("meinKonto.jsp");

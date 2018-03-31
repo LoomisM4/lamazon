@@ -21,7 +21,8 @@ public enum UserCommunication {
     PRICE_WRONG,
     IMAGE_TOO_BIG,
     ARTIKEL_BEREITS_FAVORIT,
-    LOGIN_SUCCESFUL;
+    LOGIN_SUCCESFUL,
+    NO_RIGHTS;
 
     public String toString() {
         switch (this) {
@@ -59,6 +60,8 @@ public enum UserCommunication {
                 return "Der ausgewählte Artikel wurde bereits zu den Favoriten hinzugefügt";
             case LOGIN_SUCCESFUL:
                 return "Sie wurden erfolgreich eingeloggt";
+            case NO_RIGHTS:
+                return "Für die angeforderte Aktion haben Sie nicht die nötigen Berechtigungen";
             default:
                 return "Das ist etwas schief gelaufen";
         }
