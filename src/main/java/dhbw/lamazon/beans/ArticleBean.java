@@ -72,14 +72,14 @@ public class ArticleBean {
      * Erstellt einen neuen Artikel und speichert diesen in der Datenbank
      *
      * @param title der Titel des neuen Artikels
-     * @param descirption die Beschreibung des Artikels
+     * @param description die Beschreibung des Artikels
      * @param price der gewünschte Preis des Artikels
      * @param user das User-Objekt des Benutzers, der den Artikel erstellen möchte
      */
-    public synchronized void createNewArticle(String title, String descirption, double price, User user, byte[] image, Category category) {
+    public synchronized void createNewArticle(String title, String description, double price, User user, byte[] image, Category category) {
         Article article = new Article();
         article.setTitle(title);
-        article.setDescription(descirption);
+        article.setDescription(description);
         article.setPrice(price);
         article.setUser(user);
         article.setImage(image);

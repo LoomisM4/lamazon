@@ -27,6 +27,17 @@ public class UserBean {
     EntityManager em;
 
     /**
+     * Sucht in der Datenbank nach der ID eines Benutzers und liefert das User-Objekt, das gefunden wurde zurück.
+     *
+     * @param id die ID nach der gesucht werden soll
+     *
+     * @return ein User-Objekt, falls ein passender User gefunden wurde.
+     */
+    public User findById(long id) {
+        return em.find(User.class, id);
+    }
+
+    /**
      * gleicht die übergebenen Daten mit den in der Datenbank gespeicherten Werten ab
      * und liefert, falls diese Kombination vorhanden ist ein User-Objekt zurück
      *
