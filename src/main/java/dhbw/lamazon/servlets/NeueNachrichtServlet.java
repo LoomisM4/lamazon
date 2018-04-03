@@ -28,7 +28,8 @@ public class NeueNachrichtServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (SecurityCheck.isUserLoggedIn(request, response)) {
+        if (SecurityCheck.isUserLoggedIn(request, response) &&
+                SecurityCheck.SessionHasAttributeOfType("article", Article.class, request, response)) {
             new Dispatcher(request, response).navigateTo("neueNachricht.jsp");
         }
     }

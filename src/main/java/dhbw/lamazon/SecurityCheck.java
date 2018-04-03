@@ -1,5 +1,6 @@
 package dhbw.lamazon;
 
+import dhbw.lamazon.entities.Article;
 import dhbw.lamazon.entities.User;
 import dhbw.lamazon.enums.UserCommunication;
 
@@ -84,6 +85,18 @@ public class SecurityCheck {
             return true;
 
         Errors.add(UserCommunication.NO_RIGHTS);
+        response.sendRedirect("/lamazon");
+        return false;
+    }
+
+    public static boolean SessionHasAttributeOfType(String attribute, Class<Article> className,
+                                                    HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession();
+        Object o = session.getAttribute(attribute);
+        if (o != null && o.getClass() == className)
+            return true;
+
+        Errors.add(UserCommunication.ERROR);
         response.sendRedirect("/lamazon");
         return false;
     }
