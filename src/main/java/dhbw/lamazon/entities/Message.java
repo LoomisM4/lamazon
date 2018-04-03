@@ -34,6 +34,9 @@ public class Message {
     @JoinColumn(name = "ABSENDER")
     private User sender;
     @NotNull
+    @Column(name = "BETREFF")
+    private String subject;
+    @NotNull
     @Column(name = "NACHRICHT")
     private String message;
     @Column(name = "DATUM")

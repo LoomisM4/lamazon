@@ -37,11 +37,14 @@ public class NeueNachrichtServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String message = request.getParameter("nachricht");
+        String subject = request.getParameter("betreff");
+        if (subject.length() == 0)
+            subject = "Kein Betreff";
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         Article article = (Article) session.getAttribute("article");
 
-        userBean.sendNewMessage(user, article.getUser(), message);
+        userBean.sendNewMessage(user, article.getUser(), subject, message);
 
         Messages.add(UserCommunication.MESSAGE_SENT);
 

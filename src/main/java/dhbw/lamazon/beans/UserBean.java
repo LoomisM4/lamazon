@@ -148,7 +148,7 @@ public class UserBean {
      * @param receiver User-Objekt des Empfängers
      * @param message der Inhalt der Nachricht
      */
-    public synchronized void sendNewMessage(User sender, User receiver, String message) {
+    public synchronized void sendNewMessage(User sender, User receiver, String subject, String message) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String date = sdf.format(new Date());
 
@@ -156,6 +156,7 @@ public class UserBean {
 
         m.setSender(sender);
         m.setReceiver(receiver);
+        m.setSubject(subject);
         m.setMessage(message);
         m.setDate(Timestamp.valueOf(date));
 

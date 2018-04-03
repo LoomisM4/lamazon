@@ -56,7 +56,6 @@ public class MeinKontoServlet extends HttpServlet {
         String hausnr = request.getParameter("hausnr");
         String plzString = request.getParameter("plz");
         String ort = request.getParameter("ort");
-        String benutzername = request.getParameter("benutzername");
         String email = request.getParameter("email");
         String passwort = request.getParameter("passwort");
         User user = (User) session.getAttribute("user");
@@ -67,7 +66,6 @@ public class MeinKontoServlet extends HttpServlet {
                 hausnr.length() == 0 ||
                 plzString.length() == 0 ||
                 ort.length() == 0 ||
-                benutzername.length() == 0 ||
                 email.length() == 0 ||
                 passwort.length() == 0) {
             Errors.add(UserCommunication.MISSING_FIELDS);
@@ -81,7 +79,7 @@ public class MeinKontoServlet extends HttpServlet {
         }
 
         if (Errors.isEmpty()) {
-            userBean.changeData(user, benutzername, email, passwort, vorname, nachname, strasse, hausnr, plz, ort);
+            userBean.changeData(user, user.getBenutzername(), email, passwort, vorname, nachname, strasse, hausnr, plz, ort);
             Messages.add(UserCommunication.CHANGES_SUCCESSFUL);
         }
 

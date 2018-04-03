@@ -26,7 +26,7 @@
         <div class="line">
             <div class="box"><label><b>Empf&aumlnger:</b></label>  ${article.getUser().getBenutzername()}</div>
             <div class="box"><label><b>Absender:</b></label> ${user.getBenutzername()}</div>
-            <div class="box"><input type="text" class="form-control form-control-sm" placeholder="Betreff" name="Betreff"></div>
+            <div class="box"><input type="text" class="form-control form-control-sm" placeholder="Betreff" name="betreff"></div>
         </div>
         <br>
         <div class="abstand">
