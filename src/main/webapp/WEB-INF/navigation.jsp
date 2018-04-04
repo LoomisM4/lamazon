@@ -38,10 +38,10 @@
                 <li class="nav-item active" style="padding-right: 20px">
                     <a class="nav-link" href="${url}/posteingang">Posteingang</a>
                 </li>
+                <a class="navbar-brand" href="${url}/favoriten">
+                    <img src="img/favoriten.png" height="30">
+                </a>
             </c:if>
-            <a class="navbar-brand" href="${url}/favoriten">
-                <img src="img/favoriten.png" height="30">
-            </a>
         </ul>
     </div>
 </nav>

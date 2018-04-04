@@ -79,6 +79,10 @@ public class Article {
         return null;
     }
 
+    public String toString() {
+        return this.title;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

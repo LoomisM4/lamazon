@@ -37,7 +37,8 @@ public class Favorite {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Favorite favorite = (Favorite) o;
-        return id == favorite.id;
+        return id == favorite.id &&
+                article.equals(favorite.article);
     }
 
     @Override
