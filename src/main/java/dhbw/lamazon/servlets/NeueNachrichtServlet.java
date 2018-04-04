@@ -38,8 +38,6 @@ public class NeueNachrichtServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String message = request.getParameter("nachricht");
         String subject = request.getParameter("betreff");
-        if (subject.length() == 0)
-            subject = "Kein Betreff";
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         Article article = (Article) session.getAttribute("article");

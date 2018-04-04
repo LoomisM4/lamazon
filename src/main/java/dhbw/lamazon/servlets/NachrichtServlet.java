@@ -1,6 +1,7 @@
 package dhbw.lamazon.servlets;
 
 import dhbw.lamazon.Errors;
+import dhbw.lamazon.Messages;
 import dhbw.lamazon.SecurityCheck;
 import dhbw.lamazon.beans.MessageBean;
 import dhbw.lamazon.entities.Message;
@@ -39,5 +40,19 @@ public class NachrichtServlet extends HttpServlet {
             request.setAttribute("message", message);
             new Dispatcher(request, response).navigateTo("nachricht.jsp");
         }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String idString = request.getParameter("id");
+        long id = 0;
+        try {
+            id = Long.valueOf(idString);
+            messageBean.deleteMessageById(id);
+            Messages.add(UserCommunication.MESSAGE_DELETETD);
+        } catch (NumberFormatException e) {
+            Errors.add(UserCommunication.ERROR);
+        }
+        response.sendRedirect("/posteingang");
     }
 }

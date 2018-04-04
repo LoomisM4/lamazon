@@ -35,7 +35,7 @@ public class Message {
     private User sender;
     @NotNull
     @Column(name = "BETREFF")
-    private String subject;
+    private String subject = "Kein Betreff";
     @NotNull
     @Column(name = "NACHRICHT")
     private String message;

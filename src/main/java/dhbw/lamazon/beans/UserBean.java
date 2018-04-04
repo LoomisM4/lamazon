@@ -156,7 +156,8 @@ public class UserBean {
 
         m.setSender(sender);
         m.setReceiver(receiver);
-        m.setSubject(subject);
+        if (subject.length() != 0)
+            m.setSubject(subject);
         m.setMessage(message);
         m.setDate(Timestamp.valueOf(date));
 

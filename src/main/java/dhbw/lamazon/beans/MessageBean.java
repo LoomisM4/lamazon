@@ -1,6 +1,7 @@
 package dhbw.lamazon.beans;
 
 import dhbw.lamazon.entities.Message;
+import dhbw.lamazon.entities.User;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -26,5 +27,26 @@ public class MessageBean {
      */
     public synchronized Message findMessageById(long id) {
         return em.find(Message.class, id);
+    }
+
+    /**
+     * sucht in der Datenbank nach der Nachricht mit der angegebenen ID und löscht diese aus der Datenabnk
+     *
+     * @param id die ID der Nachricht, die gelöscht werden soll
+     */
+    public synchronized void deleteMessageById(long id) {
+        this.deleteMessage(this.findMessageById(id));
+    }
+
+    /**
+     * Löscht die übergebende Nachricht aus der Datenbank
+     *
+     * @param message die Nachricht, die gelöscht werden soll
+     */
+    public synchronized void deleteMessage(Message message) {
+        User receiver = message.getReceiver();
+        receiver.getReceivedMessages().remove(message);
+        em.merge(receiver);
+        em.remove(message);
     }
 }

@@ -22,7 +22,8 @@ public enum UserCommunication {
     IMAGE_TOO_BIG,
     ARTIKEL_BEREITS_FAVORIT,
     LOGIN_SUCCESFUL,
-    NO_RIGHTS;
+    NO_RIGHTS,
+    MESSAGE_DELETETD;
 
     public String toString() {
         switch (this) {
@@ -62,6 +63,8 @@ public enum UserCommunication {
                 return "Sie wurden erfolgreich eingeloggt";
             case NO_RIGHTS:
                 return "Für die angeforderte Aktion haben Sie nicht die nötigen Berechtigungen";
+            case MESSAGE_DELETETD:
+                return "Die Nachricht wurde gelöscht";
             default:
                 return "Das ist etwas schief gelaufen";
         }
