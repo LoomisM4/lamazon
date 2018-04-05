@@ -26,6 +26,11 @@
     </div>
     <div class="row">
         <div class="col">
+            <br>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
             <form action="antworten">
                 <input type="hidden" value="${message.getId()}" name="id">
                 <button type="submit" class="btn btn-primary">Antworten</button>

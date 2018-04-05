@@ -70,6 +70,10 @@ public class NeuerArtikelServlet extends HttpServlet {
             Errors.add(UserCommunication.PRICE_WRONG);
         }
 
+        if (values.size() < 3) {
+            Errors.add(UserCommunication.MISSING_FIELDS);
+        }
+
         if (Errors.isEmpty()) {
             articelBean.createNewArticle(values.get(0), values.get(1), preis, user, image, Category.getCategory(values.get(2)));
             Messages.add(UserCommunication.ARTICLE_PUBLISHED);

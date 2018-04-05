@@ -7,31 +7,30 @@
             border-radius: 10px;
             background-color: lightblue;
             width: 100%;
-            height: 15%
-        }
-        .box {
-            border-radius: 10px;
+            min-height: 18%;
             border-color: lightblue;
             border-width: 10px;
             border-top: lightblue 10px solid;
-            border-bottom: lightblue 5px solid;
+            border-bottom: lightblue 8px solid;
             border-style: solid;
+
         }
+
         .abstand {
             margin-top: 2%;
         }
 
     </style>
-    <div class="form-group">
-        <div class="line">
-            <div class="box"><label><b>Empf&auml;nger:</b></label>  ${article.getUser().getBenutzername()}</div>
-            <div class="box"><label><b>Absender:</b></label> ${user.getBenutzername()}</div>
-            <div class="box"><input type="text" class="form-control form-control-sm" placeholder="Betreff" name="betreff"></div>
-        </div>
-        <br>
-        <div class="abstand">
-            <input type="text" class="form-control form-control-sm" placeholder="Nachricht" name="nachricht">
-        </div>
+    <div class="form-group line">
+
+        <div><label><b>Empf&auml;nger:</b></label>  ${article.getUser().getBenutzername()}</div>
+        <div><label><b>Absender:</b></label>   ${user}</div>
+        <div><input type="text" class="form-control form-control-sm" placeholder="Betreff" name="betreff"></div>
+
+        <input type="text" class="form-control form-control-sm abstand" placeholder="Nachricht" name="nachricht">
+
     </div>
-    <button type="submit" class="btn btn-primary">Senden</button>
+    <div>
+        <button  type="submit" class="btn btn-primary">Senden</button>
+    </div>
 </form>

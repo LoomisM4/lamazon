@@ -1,32 +1,43 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<h4><c:out value="${article.getTitle()}"/></h4>
+<br>
 <div class="container">
     <div class="row">
-        <div class="col-2">
-            <div class="row">
-                <h3><c:out value="${article.getTitle()}"/></h3>
-            </div>
-            <div class="row">
-                <c:out value="${article.getPrice()}"/> EUR
-            </div>
+        <div class="col">
+            <img src="${url}/image?articleId=${article.getId()}" alt="Bild" style="max-height: 500px; max-width: 500px">
         </div>
         <div class="col">
-            <img src="${url}/image?articleId=${article.getId()}" alt="Bild">
+            <h3><c:out value="${article.getPrice()}"/> EUR</h3>
         </div>
     </div>
-    <br>
-    <div>
-        <c:out value="${article.getDescription()}"/>
+    <div class="row">
+        <div class="col">
+            <br><br>
+        </div>
     </div>
-    <br>
-    <div>
-        <a href="${url}/neuenachricht">
-            <button type="button" class="btn btn-primary">Nachricht an Verk&#228;ufer</button>
-        </a>
+    <div class="row">
+        <div class="col">
+            <a href="${url}/zufavoriten?artikel=${article.getId()}">
+                <button type="button" class="btn btn-primary">Merken</button>
+            </a>
+        </div>
+        <div class="col">
+            <a href="${url}/neuenachricht">
+                <button type="button" class="btn btn-primary">Nachricht an Verk&#228;ufer</button>
+            </a>
+        </div>
     </div>
-    <div>
-        <a href="${url}/zufavoriten?artikel=${article.getId()}">
-            <button type="button" class="btn btn-primary">Merken</button>
-        </a>
+    <div class="row">
+        <div class="col">
+            <br><br>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <b>Beschreibung:</b>
+            <br><br>
+            <c:out value="${article.getDescription()}"/>
+        </div>
     </div>
 </div>
