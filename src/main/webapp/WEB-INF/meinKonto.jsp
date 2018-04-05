@@ -126,7 +126,15 @@
                 <c:otherwise>
                     <c:forEach var="article" items="${articles}">
                         <div class="row">
-                            <a href="${url}/artikel?id=${article.getId()}">${article.getTitle()}</a>
+                            <div class="col"-8>
+                                <a href="${url}/artikel?id=${article.getId()}">${article.getTitle()}</a>
+                            </div>
+                            <div class="col">
+                                <form action="artikelentfernen">
+                                    <input type="hidden" value="${article.getId()}" name="id">
+                                    <button type="submit" class="btn btn-danger">L&#246;schen</button>
+                                </form>
+                            </div>
                         </div>
                     </c:forEach>
                 </c:otherwise>

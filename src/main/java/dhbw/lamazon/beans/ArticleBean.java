@@ -6,7 +6,8 @@ import dhbw.lamazon.entities.User;
 import dhbw.lamazon.enums.Category;
 import dhbw.lamazon.enums.UserCommunication;
 
-import javax.ejb.Stateless;
+import javax.ejb.EJB;
+import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
@@ -16,11 +17,14 @@ import java.util.List;
  *
  * @author Marcel Wettach
  */
-@Stateless
+@Singleton
 @SuppressWarnings("unchecked")
 public class ArticleBean {
     @PersistenceContext
     private EntityManager em;
+
+    @EJB
+    private UserBean userBean;
 
     /**
      * Diese Methode liefert alle in der Datenbank vorhandenen Artikel
@@ -95,7 +99,7 @@ public class ArticleBean {
      *
      * @return eine Liste mit gefundenen Artikeln
      */
-    public List<Article> findByCategory(Category category) {
+    public synchronized List<Article> findByCategory(Category category) {
         if (Category.contains(category)) {
             return em.createQuery("SELECT a FROM Article a WHERE a.category = :category")
                     .setParameter("category", category)
@@ -115,7 +119,7 @@ public class ArticleBean {
      *
      * @return eine Liste mit gefundenen Artikeln
      */
-    public List<Article> findByTitleAndCategory(String title, Category category) {
+    public synchronized List<Article> findByTitleAndCategory(String title, Category category) {
         if (Category.contains(category)) {
             return em.createQuery("SELECT a FROM Article a WHERE a.title LIKE :title AND a.category = :category")
                     .setParameter("title", title)
@@ -124,5 +128,18 @@ public class ArticleBean {
         }
         Errors.add(UserCommunication.ERROR);
         return null;
+    }
+
+    /**
+     * Löscht den angegeben Artikel aus der Datenbank
+     *
+     * @param article der Artikel der gelöscht werden soll
+     */
+    public synchronized void deleteArticle(Article article) {
+        article = em.merge(article);
+        User user = article.getUser();
+        user.getArticles().remove(article);
+        em.merge(user);
+        em.remove(article);
     }
 }

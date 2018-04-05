@@ -188,4 +188,17 @@ public class UserBean {
             }
         }
     }
+
+    /**
+     * Löscht den übergebenen Favorit aus der Favoritenliste des übergebenen Users
+     *
+     * @param user der User, dessen Favoritenliste verkürzt werden soll
+     * @param favorite der Favorit der gelöscht werden soll
+     */
+    public synchronized void deleteFromFavorites(User user, Favorite favorite) {
+        favorite = em.merge(favorite);
+        user.getFavorites().remove(favorite);
+        em.merge(user);
+        em.remove(favorite);
+    }
 }

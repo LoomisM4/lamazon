@@ -4,12 +4,19 @@
 <style>
 
 
-    #price { float: right; }
+    #price {
+        float: right;
+    }
 
+    .left {
+        float: left;
+        width: 200px;
+    }
 
-    .left { float: left;width: 200px; }
-    #right { float: right;width: 200px; }
-
+    #right {
+        float: right;
+        width: 200px;
+    }
 
     .middle {
 
@@ -20,20 +27,12 @@
         left: 50%;
 
     }
-    .btn{
+
+    .btn {
 
     }
 
 </style>
-<script>
-
-    function removeElement(elementId) {
-
-        var element = document.getElementById(elementId);
-        element.parentNode.removeChild(element);
-    }
-
-</script>
 
 <h1>Favoriten</h1>
 <br>
@@ -45,39 +44,41 @@
         </c:when>
         <c:otherwise>
 
-            <button float="left" class="btn btn-primary"><a href="http://localhost:8080/lamazon">Weiter einkaufen</a></button>
+            <button float="left" class="btn btn-primary"><a href="${url}/lamazon">Weiter einkaufen</a>
+            </button>
 
             <c:forEach var="favorit" items="${user.getFavorites()}">
 
-                    <div class="fav" id="fav" style=" border-style: solid; border-color: black; border-width: thin; margin-bottom: 1px">
+                <div class="fav" id="fav"
+                     style=" border-style: solid; border-color: black; border-width: thin; margin-bottom: 1px">
 
 
-                        <div id="right">
-                            <p id="price">
+                    <div id="right">
+                        <p id="price">
                                 <c:out value="${favorit.getArticle().getPrice()}"/>
-                                <br>
-                                <input type="button" value="l&#246schen" onclick="removeElement('fav');"/>
-                            </p>
-                        </div>
+                            <br>
+                        <form action="entfernenvonfavoriten">
+                            <input type="hidden" value="${favorit.getId()}" name="id">
+                            <button type="submit" class="btn btn-danger">L&#246;schen</button>
+                        </form>
 
-
-
-                        <a href="/artikel?id=${favorit.getArticle().getId()}">
-
-
-                            <img  src="${url}/image?articleId=${article.getId()}" alt="Bild" width="75px"
-                                 height="75px">
-                            <c:out value="${favorit.getArticle().getTitle()}"/>
-                        </a>
-
-
-
-
-
-                        <div class="middle">
-                            <c:out value="${favorit.getArticle().getCategory()}"/>
-                        </div>
+                        </p>
                     </div>
+
+
+                    <a href="/artikel?id=${favorit.getArticle().getId()}">
+
+
+                        <img src="${url}/image?articleId=${favorit.getArticle().getId()}" alt="Bild" width="75px"
+                             height="75px">
+                        <c:out value="${favorit.getArticle().getTitle()}"/>
+                    </a>
+
+
+                    <div class="middle">
+                        <c:out value="${favorit.getArticle().getCategory()}"/>
+                    </div>
+                </div>
 
 
             </c:forEach>

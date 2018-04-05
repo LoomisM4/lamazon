@@ -89,7 +89,20 @@ public class SecurityCheck {
         return false;
     }
 
-    public static boolean SessionHasAttributeOfType(String attribute, Class<Article> className,
+    /**
+     * Überprüft, ob in der Session ein Attribut vorhanden ist, das von einem bestimmten Typ ist.
+     *
+     * @param attribute der Name, unter dem ein Attribut vorhanden sein soll
+     * @param className der Name der Klasse, der das Attribut entsprechen soll
+     * @param request das Request-Objekt des Servlets
+     * @param response das Response-Objekt des Servlets
+     *
+     * @return true, wenn das angegebene Attribut vorhanden ist und es vom Typ der übergebenen Klasse ist.
+     * false, wenn dies nicht der Fall ist.
+     *
+     * @throws IOException
+     */
+    public static boolean SessionHasAttributeOfType(String attribute, Class<?> className,
                                                     HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         Object o = session.getAttribute(attribute);
@@ -98,6 +111,24 @@ public class SecurityCheck {
 
         Errors.add(UserCommunication.ERROR);
         response.sendRedirect("/lamazon");
+        return false;
+    }
+
+    /**
+     * Überprüft, ob der User in der Session der Ersteller des übergebenen Artikels ist
+     *
+     * @param request das Request-Objekt des Servlets
+     * @param response das Response-Objekt des Servlets
+     * @param article der Artikel, der überprüft werden soll
+     *
+     * @return true, wenn der User der Ersteller des Artikels ist.
+     * false, wenn er nicht der Ersteller des Artikels ist.
+     */
+    public static boolean isUserOwnerOfProduct(HttpServletRequest request, HttpServletResponse response, Article article) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        if (article.getUser().equals(user))
+            return true;
         return false;
     }
 }

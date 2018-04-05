@@ -88,7 +88,9 @@ public class Article {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Article artikel = (Article) o;
-        return id == artikel.id;
+        return id == artikel.id &&
+                title.equals(artikel.title) &&
+                description.equals(artikel.description);
     }
 
     @Override
