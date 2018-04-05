@@ -5,6 +5,11 @@
 
     <h2 style="margin-bottom: 3%">Posteingang</h2>
     <table>
+        <colgroup>
+            <col style="width: 25%">
+            <col style="width: 65%">
+            <col style="width: 35%">
+        </colgroup>
         <tr style="background-color: lightgray">
             <th>
                 Absender
@@ -18,11 +23,6 @@
         </tr>
 
         <c:forEach var="message" items="${user.getReceivedMessages()}">
-            <colgroup>
-                <col width="25%">
-                <col width="75%">
-                <col width="25%">
-            </colgroup>
             <tr style="height: 20px; border-bottom: 1px solid #000">
                 <td>
                     <a href="${url}/nachricht?id=${message.getId()}">

@@ -11,9 +11,6 @@
                 <li class="nav-item active" style="padding-right: 20px">
                     <a class="nav-link" href="${url}/impressum">Impressum</a>
                 </li>
-                <li class="nav-item active" style="padding-right: 20px">
-                    <a class="nav-link" href="${url}/ueberuns">&#220;ber uns</a>
-                </li>
             </ul>
         </div>
     </div>
