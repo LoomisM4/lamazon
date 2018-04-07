@@ -44,8 +44,9 @@
         </c:when>
         <c:otherwise>
 
-            <button float="left" class="btn btn-primary"><a href="${url}/lamazon">Weiter einkaufen</a>
-            </button>
+            <form action="lamazon">
+                <button float="left" type="submit" class="btn btn-primary">Weiter einkaufen</button>
+            </form>
 
             <c:forEach var="favorit" items="${user.getFavorites()}">
 

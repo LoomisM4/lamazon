@@ -24,7 +24,8 @@ public enum UserCommunication {
     LOGIN_SUCCESFUL,
     NO_RIGHTS,
     MESSAGE_DELETETD,
-    ARTICLE_DELETED;
+    ARTICLE_DELETED,
+    ALREADY_LOGGED_IN;
 
     public String toString() {
         switch (this) {
@@ -68,6 +69,8 @@ public enum UserCommunication {
                 return "Die Nachricht wurde gelöscht";
             case ARTICLE_DELETED:
                 return "Der Artikel wurde erfolgreich gelöscht";
+            case ALREADY_LOGGED_IN:
+                return "Sie sind bereits eingeloggt";
             default:
                 return "Das ist etwas schief gelaufen";
         }

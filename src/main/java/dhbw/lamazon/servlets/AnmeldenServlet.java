@@ -27,7 +27,14 @@ public class AnmeldenServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        new Dispatcher(request, response).navigateTo("anmelden.jsp");
+        HttpSession session = request.getSession();
+        Object o = session.getAttribute("user");
+        if (o == null)
+            new Dispatcher(request, response).navigateTo("anmelden.jsp");
+        else {
+            Errors.add(UserCommunication.ALREADY_LOGGED_IN);
+            response.sendRedirect("/lamazon");
+        }
     }
 
     @Override
