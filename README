@@ -7,3 +7,7 @@ folgendes ergänzt werden:
       UserName dhbw
       Password GQks6c,x4tLx[8HY
   </Resource>
+
+Die Seite, die zum Starten der Anwendung als erstes aufgerufen werden muss ist:
+
+    http://localhost:8080/lamazon
