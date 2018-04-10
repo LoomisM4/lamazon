@@ -1,13 +1,3 @@
-Um die Anwendung zu starten, muss in der Datei .../conf/tomee.xml im TomEE Installationsverzeichnis
-folgendes ergänzt werden:
-
-  <Resource id="jdbc/lamazon" type="DataSource">
-      JdbcDriver  com.mysql.jdbc.Driver
-      JdbcUrl jdbc:mysql://database.marcel-wettach.com:8080/lamazon_db
-      UserName dhbw
-      Password GQks6c,x4tLx[8HY
-  </Resource>
-
 Die Seite, die zum Starten der Anwendung als erstes aufgerufen werden muss ist:
 
     http://localhost:8080/lamazon
